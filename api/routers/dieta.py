@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from api.schemas.dieta import DietaCreate, DietaRead, DietaUpdate
 from api.db.database import SessionLocal
 from api.models.dieta import Dieta
+from api.core.dependencies import role_required
 
 router = APIRouter(prefix="/api/dietas", tags=["dietas"])
 
@@ -13,8 +14,8 @@ def get_db():
     finally: 
         db.close()
 
-@router.post("/crear_dieta", response_model=DietaRead)
-def crear_dieta(dieta: DietaCreate, db: Session = Depends(get_db)):
+@router.post("/crear", response_model=DietaRead)
+def crear_dieta(dieta: DietaCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     db_dieta = Dieta(**dieta.dict())
     db.add(db_dieta)
     db.commit()
@@ -35,7 +36,7 @@ def buscar_dieta(id: int, db: Session = Depends(get_db)):
 
 
 @router.put("/modificar/{id}", response_model=DietaRead)
-def modificar_dieta(id: int, dieta_data: DietaUpdate, db: Session = Depends(get_db)):
+def modificar_dieta(id: int, dieta_data: DietaUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     dieta = db.query(Dieta).filter(Dieta.id == id).first()
     if not dieta:
         raise HTTPException(status_code=404, detail="Esa dieta no existe.")
@@ -47,7 +48,7 @@ def modificar_dieta(id: int, dieta_data: DietaUpdate, db: Session = Depends(get_
     return dieta
 
 @router.delete("/eliminar/{id}", response_model=DietaRead)
-def eliminar_dieta(id: int, db: Session = Depends(get_db)):
+def eliminar_dieta(id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     dieta = db.query(Dieta).filter(Dieta.id == id).first()
     if not dieta:
         raise HTTPException(status_code=404, detail="Esa dieta no existe.")

@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from api.schemas.cliente_plan import ClientePlanCreate, ClientePlanRead, ClientePlanUpdate
 from api.db.database import SessionLocal
 from api.models.cliente_plan import ClientePlan
+from api.core.dependencies import role_required
 
 router = APIRouter(prefix="/api/clientes", tags=["clientes"])
 
@@ -13,8 +14,8 @@ def get_db():
     finally: 
         db.close()
 
-@router.post("/asignar_plan", response_model=ClientePlanRead)
-def asignar_plan(clientePlan: ClientePlanCreate, db: Session = Depends(get_db)):
+@router.post("/cliente_plan/asignar", response_model=ClientePlanRead)
+def asignar_plan(clientePlan: ClientePlanCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     db_clientePlan = ClientePlan(**clientePlan.dict())
     db.add(db_clientePlan)
     db.commit()
@@ -31,7 +32,7 @@ def obtener_cliente_plan(cliente_id: int, db: Session = Depends(get_db)):
 
 
 @router.put("/cliente_plan/{cliente_id}", response_model=ClientePlanRead)
-def actualizar_cliente_plan(cliente_id: int, cliente_plan_data: ClientePlanUpdate, db: Session = Depends(get_db)):
+def actualizar_cliente_plan(cliente_id: int, cliente_plan_data: ClientePlanUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     cliente_plan = db.query(ClientePlan).filter(ClientePlan.cliente_id == cliente_id).first()
     if not cliente_plan:
         raise HTTPException(status_code=404, detail="El cliente no tiene un plan asignado.")
@@ -43,7 +44,7 @@ def actualizar_cliente_plan(cliente_id: int, cliente_plan_data: ClientePlanUpdat
     return cliente_plan
 
 @router.delete("/cliente_plan/{cliente_id}", response_model=ClientePlanRead)
-def eliminar_cliente_plan(cliente_id: int, db: Session = Depends(get_db)):
+def eliminar_cliente_plan(cliente_id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     cliente_plan = db.query(ClientePlan).filter(ClientePlan.cliente_id == cliente_id).first()
     if not cliente_plan:
         raise HTTPException(status_code=404, detail="El cliente no posee un plan asignado.")

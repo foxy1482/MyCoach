@@ -6,6 +6,7 @@ from api.db.database import SessionLocal
 from api.models.dieta_comida_alimento import DietaComidaAlimento
 from api.models.alimento import Alimento
 from collections import defaultdict
+from api.core.dependencies import role_required
 
 router = APIRouter(prefix="/api/dietas", tags=["dietas"])
 
@@ -17,7 +18,7 @@ def get_db():
         db.close()
 
 @router.post("/comida/alimento/asignar", response_model=DietaComidaAlimentoRead)
-def asignar_comida_alimento(comida_alimento: DietaComidaAlimentoCreate, db: Session=Depends(get_db)):
+def asignar_comida_alimento(comida_alimento: DietaComidaAlimentoCreate, db: Session=Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     db_comida_alimento = DietaComidaAlimento(**comida_alimento.dict())
     db.add(db_comida_alimento)
     db.commit()
@@ -78,7 +79,7 @@ def ver_comidas_detalle(dieta_id: int, db: Session = Depends(get_db)):
     return list(comidas_dict.values())
 
 @router.put("/comida/{asignacion_id}/alimento/modificar", response_model=DietaComidaAlimentoRead)
-def modificar_asignacion(asignacion_id: int, dieta_comidaalimento_data: DietaComidaAlimentoUpdate, db: Session = Depends(get_db)):
+def modificar_asignacion(asignacion_id: int, dieta_comidaalimento_data: DietaComidaAlimentoUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     dieta_comida = db.query(DietaComidaAlimento).filter(DietaComidaAlimento.id == asignacion_id).first()
     if not dieta_comida:
         raise HTTPException(status_code=404, detail="La comida seleccionada no tiene ningún alimento asignado.")
@@ -89,7 +90,7 @@ def modificar_asignacion(asignacion_id: int, dieta_comidaalimento_data: DietaCom
     return dieta_comida
 
 @router.delete("/comida/{asignacion_id}/alimento/eliminar", response_model=DietaComidaAlimentoRead)
-def eliminar_asignacion(asignacion_id: int, db: Session = Depends(get_db)):
+def eliminar_asignacion(asignacion_id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     dieta_comida = db.query(DietaComidaAlimento).filter(DietaComidaAlimento.id == asignacion_id).first()
     if not dieta_comida:
         raise HTTPException(status_code=404, detail="La comida seleccionada no tiene ningún alimento asignado.")

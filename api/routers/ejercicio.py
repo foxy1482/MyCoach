@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from api.schemas.ejercicio import EjercicioCreate, EjercicioRead, EjercicioUpdate
 from api.db.database import SessionLocal
 from api.models.ejercicio import Ejercicio
+from api.core.dependencies import role_required
 
 router = APIRouter(prefix="/api/rutinas", tags=["rutinas"])
 
@@ -15,7 +16,7 @@ def get_db():
         db.close()
 
 @router.post("/ejercicios/crear", response_model=EjercicioCreate)
-def crear_ejercicio(ejercicio: EjercicioCreate, db: Session = Depends(get_db)):
+def crear_ejercicio(ejercicio: EjercicioCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     db_ejercicio = Ejercicio(**ejercicio.dict())
     db.add(db_ejercicio)
     db.commit()
@@ -40,7 +41,7 @@ def buscar_ejercicios(query: Optional[str] = Query(default=None), db: Session = 
     return ejercicios
 
 @router.put("/ejercicios/modificar/{id}", response_model=EjercicioRead)
-def modificar_ejercicio(id: int, ejercicio_data: EjercicioUpdate, db: Session = Depends(get_db)):
+def modificar_ejercicio(id: int, ejercicio_data: EjercicioUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     ejercicio = db.query(Ejercicio).filter(Ejercicio.id == id).first()
     if not ejercicio:
         raise HTTPException(status_code=404, detail="El ejercicio no existe.")
@@ -51,7 +52,7 @@ def modificar_ejercicio(id: int, ejercicio_data: EjercicioUpdate, db: Session = 
     return ejercicio
 
 @router.delete("/ejercicios/eliminar/{id}", response_model=EjercicioRead)
-def eliminar_ejercicio(id: int, db: Session = Depends(get_db)):
+def eliminar_ejercicio(id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     ejercicio = db.query(Ejercicio).filter(Ejercicio.id == id).first()
     if not ejercicio:
         raise HTTPException(status_code=404, detail="El ejercicio no existe.")

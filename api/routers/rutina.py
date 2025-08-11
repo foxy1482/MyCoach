@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from api.schemas.rutina import RutinaCreate, RutinaRead, RutinaUpdate
 from api.db.database import SessionLocal
 from api.models.rutina import Rutina
+from api.core.dependencies import role_required
 
 router = APIRouter(prefix="/api/rutinas", tags=["rutinas"])
 
@@ -14,7 +15,7 @@ def get_db():
         db.close()
 
 @router.post("/crear", response_model = RutinaRead)
-def crear_rutina(rutina: RutinaCreate, db: Session = Depends(get_db)):
+def crear_rutina(rutina: RutinaCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     db_rutina = Rutina(**rutina.dict())
     db.add(db_rutina)
     db.commit()
@@ -33,7 +34,7 @@ def obtener_rutina(id: int, db: Session = Depends(get_db)):
     return rutina
 
 @router.put("/modificar/{id}", response_model=RutinaRead)
-def modificar_rutina(id: int, rutina_data: RutinaUpdate, db: Session = Depends(get_db)):
+def modificar_rutina(id: int, rutina_data: RutinaUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     rutina = db.query(Rutina).filter(Rutina.id == id).first()
     if not rutina:
         raise HTTPException(status_code=404, detail="La rutina no existe.")
@@ -45,7 +46,7 @@ def modificar_rutina(id: int, rutina_data: RutinaUpdate, db: Session = Depends(g
     return rutina
 
 @router.delete("/eliminar/{id}", response_model=RutinaRead)
-def eliminar_rutina(id: int, db: Session = Depends(get_db)):
+def eliminar_rutina(id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     rutina = db.query(Rutina).filter(Rutina.id == id).first()
     if not rutina:
         raise HTTPException(status_code=404, detail="La rutina no existe.")

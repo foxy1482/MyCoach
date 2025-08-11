@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from api.schemas.plan_periodo import PlanPeriodoCreate, PlanPeriodoRead, PlanPeriodoUpdate
 from api.db.database import SessionLocal
 from api.models.plan_periodo import PlanPeriodo
+from api.core.dependencies import role_required
 
 router = APIRouter(prefix="/api/planes", tags=["planes"])
 
@@ -14,7 +15,7 @@ def get_db():
         db.close()
 
 @router.post("/periodos/crear", response_model= PlanPeriodoRead)
-def crear_periodo(periodo: PlanPeriodoCreate, db: Session = Depends(get_db)):
+def crear_periodo(periodo: PlanPeriodoCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     db_periodo = PlanPeriodo(**periodo.dict(()))
     db.add(db_periodo)
     db.commit()
@@ -33,7 +34,7 @@ def buscar_periodo(id: int, db: Session = Depends(get_db)):
     return periodo
 
 @router.put("/periodos/modificar/{id}", response_model=PlanPeriodoRead)
-def modificar_periodo(id: int, periodo_data: PlanPeriodoUpdate, db: Session = Depends(get_db)):
+def modificar_periodo(id: int, periodo_data: PlanPeriodoUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     periodo = db.query(PlanPeriodo).filter(PlanPeriodo.id == id).first()
     if not periodo:
         raise HTTPException(status_code=404, detail="El período no existe.")
@@ -44,7 +45,7 @@ def modificar_periodo(id: int, periodo_data: PlanPeriodoUpdate, db: Session = De
     return periodo
 
 @router.delete("/periodos/eliminar/{id}", response_model=PlanPeriodoRead)
-def eliminar_periodo(id: int, db: Session = Depends(get_db)):
+def eliminar_periodo(id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
     periodo = db.query(PlanPeriodo).filter(PlanPeriodo.id == id).first()
     if not periodo:
         raise HTTPException(status_code=404, detail="El período no existe.")
