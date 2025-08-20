@@ -1,0 +1,18 @@
+.auth-card
+{
+    height: 75dvh;
+}
+.authform__input
+{
+    transition: height .14s ease;
+}
+.authform__input:focus
+{
+    outline: none;
+    border: none;
+    height: 2.45rem;
+}
+.authform__input[type="submit"]
+{
+    transition: color .2s, border .15s, background .35s;
+}

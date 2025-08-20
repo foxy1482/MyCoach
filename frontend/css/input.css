@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: Coda;
+    src: url(../fonts/Coda-Regular.woff2) format('woff2');
+    font-weight: 400;
+    font-style: swap;
+}
+@font-face {
+    font-family: Kodchasan;
+    src: url(../fonts/Kodchasan-Regular.woff2) format('woff2');
+    font-weight: 400;
+    font-style: swap;
+}
+@font-face {
+    font-family: Kodchasan;
+    src: url(../fonts/Kodchasan-Bold.woff2) format('woff2');
+    font-weight: 800;
+    font-style: swap;
+}
+@font-face {
+    font-family: Kodchasan;
+    src: url(../fonts/Kodchasan-Light.woff2) format('woff2');
+    font-weight: 0 200;
+    font-style: swap;
+}
+@font-face {
+    font-family: Kodchasan;
+    src: url(../fonts/Kodchasan-SemiBold.woff2) format('woff2');
+    font-weight: 500 600;
+    font-style: swap;
+}
+@font-face
+{
+    font-family: Inter;
+    src: url(../fonts/inter.woff2) format('woff2');
+    font-weight: 100 800;
+    font-style: swap;
+}
+@font-face {
+    font-family: Carlito;
+    src: url(../fonts/carlito.woff2) format('woff2');
+    font-weight: 400;
+    font-style: swap;
+}
+@font-face {
+    font-family: Carlito;
+    src: url(../fonts/carlito-bold.woff2) format('woff2');
+    font-weight: 600 800;
+    font-style: swap;
+}
+@font-face {
+    font-family: 'Doppio One';
+    src: url(../fonts/doppio-one.woff2) format('woff2');
+    font-weight: 100 800;
+    font-style: swap;
+}
+@font-face {
+    font-family: 'Chalet Paris';
+    src: url(../fonts/chalet-paris.woff2) format('woff2');
+    font-weight: 100 800;
+    font-style: swap;
+}
+@font-face {
+    font-family: 'Chalet NewYork';
+    src: url(../fonts/chalet-newyork.woff2) format('woff2');
+    font-weight: 100 800;
+    font-style: swap;
+}
+
+@theme
+{
+    --font-coda: Coda;
+    --font-kodchasan: Kodchasan;
+    --font-inter: Inter;
+    --font-carlito: Carlito;
+    --font-doppio-one: 'Doppio One';
+    --font-chalet-paris: 'Chalet Paris';
+    --font-chalet-newyork: 'Chalet NewYork';
+}

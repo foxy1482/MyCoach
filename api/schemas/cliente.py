@@ -7,6 +7,7 @@ class ClienteCreate(BaseModel):
     apellido: str = Field(..., min_length=2, max_length=100 )
     edad: int = Field(..., ge=13, le=120)
     sexo: str = Field(..., max_length=2)
+    usuario_id: int
     
     class Config:
         schema_extra = {
@@ -24,6 +25,7 @@ class ClienteRead(BaseModel):
     apellido: str
     edad: int
     sexo: str
+    usuario_id: int = None
     
     class Config:
         orm_mode = True

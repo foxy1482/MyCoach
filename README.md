@@ -9,6 +9,7 @@ Al centralizar todas estas funciones, MyCoach no solo ahorra tiempo, sino que ta
 ### Tecnologías
 Se han empleado tecnologías y frameworks como:
 - FastAPI para el armado del API REST.
+- FastAPI-Mail para enviar correos.
 - SQLAlchemy para el armado de modelos SQL.
 - Pydantic para la validación de los modelos con schemas.
 - JWT y Passlib para la generación de tokens y cifrado de contraseñas.
@@ -91,6 +92,11 @@ Como primer paso, se debe contar con una base de datos idéntica a la utilizada 
         + edad -> numeric
         + sexo -> text
         + usuario_id -> int fk
+    * **cliente_dieta**
+        + id -> pk
+        + cliente_id -> int fk
+        + dieta_id -> int fk
+        + fecha_asignacion -> date
     * **cliente_rutina**
         + id -> pk
         + cliente_id -> int fk
@@ -163,19 +169,25 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
 
 ### Auth
 - /auth/login
-    * Ruta para iniciar sesión.
+    * Ruta POST para iniciar sesión.
 - /auth/registro
-    * Ruta para registrar una cuenta.
+    * Ruta POST para registrar una cuenta.
 - /auth/perfil
-    * Ruta para ver el perfil del usuario actual.
+    * Ruta POST para ver el perfil del usuario actual. **Requiere permisos**
+- /auth/forgot-password
+    * Ruta POST para enviar un mail y cambiar la contraseña olvidada.
+- /auth/reset-password
+    * Ruta POST para cambiar la contraseña, a partir de un token recibido por mail.
 
 ### Clientes
 - /api/clientes/crear
-    * Ruta POST para crear el cliente. **Requiere permisos**.
+    * Ruta POST para crear el cliente.
 - /api/clientes/
     * Ruta GET para ver la lista de clientes. **Requiere permisos**.
 - /api/clientes/{cliente_id}
     * Ruta GET para buscar un cliente específico.
+- /api/clientes/userID/{usuario_id}
+    * Ruta GET para buscar un cliente vinculado al ID de un usuario específico.
 - /api/clientes/{cliente_id}
     * Ruta PUT para actualizar los datos de un cliente. **Requiere permisos**.
 - /api/clientes/{cliente_id}
@@ -188,6 +200,14 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
     * Ruta PUT para re-asignar una rutina a un cliente. **Requiere permisos**. 
 - /api/clientes/cliente_rutina/{cliente_id}
     * Ruta DELETE para quitar la asignación de rutina de un cliente. **Requiere permisos**.
+- /api/clientes/cliente_dieta/{cliente_id}
+    * Ruta GET para obtener la dieta de un cliente.
+- /api/clientes/cliente_dieta/asignar
+    * Ruta POST para asignar una dieta a un cliente. **Requiere permisos**.
+- /api/clientes/cliente_dieta/{cliente_id}
+    * Ruta PUT para re-asignar una dieta a un cliente. **Requiere permisos**. 
+- /api/clientes/cliente_dieta/{cliente_id}
+    * Ruta DELETE para quitar la asignación de dieta de un cliente. **Requiere permisos**.
 - /api/clientes/cliente_plan/{cliente_id}
     * Ruta GET para obtener el plan de un cliente.
 - /api/clientes/cliente_plan/asignar

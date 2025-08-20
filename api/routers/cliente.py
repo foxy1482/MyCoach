@@ -15,7 +15,7 @@ def get_db():
         db.close()
 
 @router.post("/crear", response_model = ClienteRead)
-def crear_cliente(cliente: ClienteCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
+def crear_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     db_cliente = Cliente(**cliente.dict())
     db.add(db_cliente)
     db.commit()
@@ -31,6 +31,13 @@ def listar_clientes(db: Session = Depends(get_db)):
 @router.get("/{cliente_id}", response_model=ClienteRead)
 def obtener_cliente(cliente_id: int, db: Session = Depends(get_db)):
     cliente = db.query(Cliente).filter(Cliente.id == cliente_id).first()
+    if not cliente:
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
+    return cliente
+
+@router.get("/userID/{usuario_id}", response_model=ClienteRead)
+def obtener_cliente_segun_usuario(usuario_id: int, db: Session = Depends(get_db)):
+    cliente = db.query(Cliente).filter(Cliente.usuario_id == usuario_id).first()
     if not cliente:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
     return cliente

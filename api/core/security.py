@@ -29,3 +29,14 @@ def decodificar_token_acceso(token: str):
     except JWTError:
         return None
 
+def crear_token_reseteo(user_id: int):
+    expire = datetime.utcnow() + timedelta(minutes=30)
+    to_encode = {"sub": str(user_id), "exp": expire}
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def verificar_token_reseteo(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return int(payload.get("sub"))  # devuelve user_id
+    except:
+        return None

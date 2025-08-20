@@ -9,3 +9,10 @@ class UsuarioCreate(BaseModel):
 class UsuarioLogin(BaseModel):
     username: str
     password: str
+
+class UsuarioForgotPWD(BaseModel):
+    email: EmailStr
+
+class UsuarioResetPWD(BaseModel):
+    token: str
+    new_password: str

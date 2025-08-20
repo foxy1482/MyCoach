@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, Date, ForeignKey
 from api.db.database import Base
 
-class ClienteRutina(Base):
+class ClienteDieta(Base):
     __tablename__ = "cliente_rutina"
     
     id = Column(Integer, primary_key=True, index=True)
