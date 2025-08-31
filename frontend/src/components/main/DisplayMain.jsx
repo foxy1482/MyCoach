@@ -7,6 +7,9 @@ import { DisplayDashboard } from "./dashboard/DisplayDashboard";
 import { DisplayChangePW } from "../auth/DisplayChangePW.jsx";
 import { DisplayResetPW } from "../auth/DisplayResetPW.jsx";
 import { DisplayRoutines } from "./rutinas/DisplayRoutines.jsx";
+import { DisplayProfile } from "./perfil/DisplayProfile.jsx";
+import { DisplayMyClients } from "./trainer/DisplayMyClients.jsx";
+import { Logout } from "./perfil/Logout.jsx";
 
 export default function Main()
 {
@@ -24,7 +27,9 @@ export default function Main()
                     <Route path="/dietas" element={<div></div>}></Route>
                     <Route path="/progreso" element={<div></div>}></Route>
                     <Route path="/soporte" element={<div></div>}></Route>
-                    <Route path="/perfil" element={<div></div>}></Route>
+                    <Route path="/perfil" element={<DisplayProfile></DisplayProfile>}></Route>
+                    <Route path="/perfil/logout" element={<Logout></Logout>}></Route>
+                    <Route path="/myClients" element={<DisplayMyClients/>}></Route>
                 </Routes>
             </BrowserRouter>
         </main>

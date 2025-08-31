@@ -36,3 +36,16 @@ export async function GetAllClients()
     const clientes = await responseClientes.json();
     return clientes;
 }
+
+export async function GetUserByID(id, token)
+{
+    const response = await fetch(`/api/auth/usuario/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({token})
+    });
+    const usuario = await response.json();
+    return usuario;
+}

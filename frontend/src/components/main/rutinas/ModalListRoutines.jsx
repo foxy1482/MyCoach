@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { GetUserID } from "../../../utils/getUser";
 import { ShowSvg } from "../../utilities/ShowSvg";
+import { GetRoutineAsignationData } from "../../../utils/getRoutine";
 
-export function ModalListRoutines({ nuevaRutina, setNuevaRutina, rutina, setRutina, alumnoActivo, setAlumnoActivo }) {
+export function ModalListRoutines({ action, nuevaRutina, setNuevaRutina, rutina, setRutina, alumnoActivo, setAlumnoActivo }) {
     const [rutinas, setRutinas] = useState([]);
     const [filtro, setFiltro] = useState("");
     const [rutinaSeleccionada, setRutinaSeleccionada] = useState(null);
@@ -29,7 +30,7 @@ export function ModalListRoutines({ nuevaRutina, setNuevaRutina, rutina, setRuti
         };
         fetchRutinas();
     }, []);
-
+    
     // Filtrar rutinas por nombre
     const rutinasFiltradas = rutinas.filter(r =>
         r.nombre.toLowerCase().includes(filtro.toLowerCase())
@@ -66,6 +67,40 @@ export function ModalListRoutines({ nuevaRutina, setNuevaRutina, rutina, setRuti
             setLoading(false);
         }
     };
+    const handleModifyAsign = async ()=>{
+        if (!rutinaSeleccionada) return;
+        setLoading(true);
+        try {
+            const cliente_id = alumnoActivo.id;
+            const rutina_id = rutinaSeleccionada.id;
+
+            const fechaHoy = new Date().toISOString();
+            const fecha_asignacion = fechaHoy.slice(0,10);
+
+            const response = await fetch(`/api/api/clientes/cliente_rutina/${cliente_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({
+                    cliente_rutina_data: {
+                        rutina_id,
+                        fecha_asignacion
+                    },
+                    data : { token }
+                })
+            });
+            setRutina(rutinaSeleccionada);
+            setNuevaRutina(false);
+        } catch (e)
+        {
+            console.log("Error modificando la asignacion: ", e)    
+        }
+        finally
+        {
+            setLoading(false);
+        }
+    }
 
     return (
         <div className="p-6 w-full max-w-lg bg-white rounded-xl shadow-lg flex flex-col gap-4 m-auto">
@@ -107,13 +142,13 @@ export function ModalListRoutines({ nuevaRutina, setNuevaRutina, rutina, setRuti
                 )}
             </div>
             <button
-                className={`w-full py-2 rounded-lg font-semibold transition ${
+                className={`w-full cursor-pointer py-2 rounded-lg font-semibold transition ${
                     rutinaSeleccionada
                         ? "bg-teal-300 text-white hover:bg-teal-300"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
                 disabled={!rutinaSeleccionada || loading}
-                onClick={handleAsignRoutine}
+                onClick={action == "ASIGN" ? handleAsignRoutine : action == "MODIFY" ? handleModifyAsign : ""}
                 type="button"
             >
                 Seleccionar rutina

@@ -15,14 +15,14 @@ Se han empleado tecnologías y frameworks como:
 - JWT y Passlib para la generación de tokens y cifrado de contraseñas.
 
 ### Arquitectura de carpetas y módulos
-/api
-    /auth       -> Modelos, schemas y endpoints para la gestión del sistema de autenticación.
-    /core       -> Configuración base, seguridad y dependencias
-    /db         -> Conexión a la base de datos
-    /models     -> Modelos SQL
-    /routers    -> Endpoints generales de la aplicación
-    /schemas    -> Validación de datos con Pydantic
-    main.py     -> Punto de entrada de la API
+- /api
+    * /auth       -> Modelos, schemas y endpoints para la gestión del sistema de autenticación.
+    * /core       -> Configuración base, seguridad y dependencias
+    * /db         -> Conexión a la base de datos
+    * /models     -> Modelos SQL
+    * /routers    -> Endpoints generales de la aplicación
+    * /schemas    -> Validación de datos con Pydantic
+    * main.py     -> Punto de entrada de la API
 
 ## Configuración e instalación
 
@@ -172,6 +172,8 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
     * Ruta POST para iniciar sesión.
 - /auth/registro
     * Ruta POST para registrar una cuenta.
+- /auth/usuario/{usuario_id}
+    * Ruta POST para obtener los datos de un usuario. **Requiere permisos**
 - /auth/perfil
     * Ruta POST para ver el perfil del usuario actual. **Requiere permisos**
 - /auth/forgot-password

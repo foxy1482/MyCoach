@@ -70,6 +70,8 @@
 
 @theme
 {
+    --color-masculino: #48E;
+    --color-femenino: #e827e5;
     --font-coda: Coda;
     --font-kodchasan: Kodchasan;
     --font-inter: Inter;
@@ -77,4 +79,7 @@
     --font-doppio-one: 'Doppio One';
     --font-chalet-paris: 'Chalet Paris';
     --font-chalet-newyork: 'Chalet NewYork';
+    --color-primary: #10B981;
+    --color-secondary: #059669;
+    --color-success: #22c55e;
 }

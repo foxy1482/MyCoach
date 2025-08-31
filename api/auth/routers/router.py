@@ -51,13 +51,20 @@ async def enviar_correo_reseteo(to_email: str, reset_token: str):
 
 reset_tokens = {}
 
-@router.get("/solo-admin")
-def endpoint_admin(user=Depends(role_required("admin"))):
-    return {"msg": f"Hola {user.nombre}, eres admin"}
-
-@router.get("/solo-clientes")
-def endpoint_cliente(user=Depends(role_required("usuario", "admin"))):
-    return {"detail" : {"msg": f"Hola {user.nombre}, tienes acceso como cliente"}}
+@router.post("/usuario/{usuario_id}")
+def obtener_datos_usuario(usuario_id: int, db: Session = Depends(get_db), user=Depends(role_required("admin","entrenador"))):
+    usuario = db.query(usuarioModel.Usuario).filter(usuarioModel.Usuario.id == usuario_id).first()
+    if not usuario:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Usuario no encontrado"
+        )
+    return {
+        "id" : usuario.id,
+        "username" : usuario.username,
+        "email" : usuario.email,
+        "rol" : usuario.rol
+    }
 
 @router.post("/perfil")
 def obtener_perfil(current_user = Depends(get_current_user)):

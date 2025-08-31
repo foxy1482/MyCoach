@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ShowSvg } from "../utilities/ShowSvg";
 import '../../../css/StyleNavbar.css'
 import { LoadNavIcon } from "../utilities/LoadNavIcon";
-
+import Cookies from 'js-cookie'
+import { GetAuthUserID } from "../../utils/getUser";
 
 export default function Header()
 {
     let niSize = "30";
+    let token = Cookies.get('token');
+    const [esEntrenador, setEsEntrenador] = useState(null);
+    useEffect(()=>
+    {
+        const fetchData = async ()=>
+        {
+            const usuarioData = await GetAuthUserID(token);
+            
+            if (usuarioData && usuarioData.rol.id == 2 || usuarioData.rol.id == 3) setEsEntrenador(true);
+        }
+        fetchData();
+    })
     return (
         <header className="header w-full h-12 md:h-9 bg-green-300 relative mb-16 flex items-center">
             <div className="header-wrapper h-full w-fit grid grid-cols-3 mb-16 m-auto">
@@ -22,6 +35,9 @@ export default function Header()
                     </div>
                 </div>
                 <div className="right-nav-container flex flex-row m-x-auto w-full justify-end items-center max-h-8">
+                    {esEntrenador ? (
+                        <LoadNavIcon name={"panel"} size={niSize}></LoadNavIcon>
+                    ) : ""}
                     <LoadNavIcon name={"soporte"} size={niSize}></LoadNavIcon>
                     <LoadNavIcon name={"usuario"} size={niSize}></LoadNavIcon>
                 </div>

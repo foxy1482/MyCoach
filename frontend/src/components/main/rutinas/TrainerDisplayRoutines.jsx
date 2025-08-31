@@ -45,17 +45,22 @@ export function TrainerDisplayRoutines()
                 <span className="h-px flex-grow bg-neutral-600"></span>
             </div>
             <div className="trainer-trainees flex flex-col">
-                <h3 className="font-inter font-bold text-2xl">Alumnos</h3>
                 {alumnos && !alumnoActivo ? 
                 (
-                    alumnos.map((trainee, index) => 
+                    <React.Fragment>
+                    <h3 className="font-inter font-bold text-2xl">Alumnos</h3>
+                    {alumnos.map((trainee, index) => 
                     (
-                        <a key={index} className="trainee alumno border border-neutral-500/50 rounded-lg p-2 my-2 w-60 group hover:scale-120 transition cursor-pointer" onClick={()=>setAlumnoActivo(alumnos[index])}>{trainee.nombre + " " + trainee.apellido}
-                            <span className="trainee-name alumno-nombre font-inter text-neutral-500 group-hover:text-black select-none"></span>
+                        <a key={index} className="trainee alumno bg-white shadow-lg rounded-lg p-3 my-3 group hover:scale-110 transition cursor-pointer flex flex-row" onClick={()=>setAlumnoActivo(alumnos[index])}>
+                            <div className="size-3 rounded-full mx-3 my-auto bg-neutral-500 group-hover:bg-success"></div>
+                            <span className="trainee-name alumno-nombre font-inter text-lg text-neutral-500 group-hover:text-neutral-800 select-none">
+                                {trainee.nombre + " " + trainee.apellido}
+                            </span>
                         </a>
-                    ))
+                    ))}
+                    </React.Fragment>
                 ) : alumnos && alumnoActivo ? (
-                    <ModalAlumnoRutinas alumnoActivo={alumnoActivo} setAlumnoActivo={setAlumnoActivo}></ModalAlumnoRutinas>
+                    <ModalAlumnoRutinas token={token} alumnoActivo={alumnoActivo} setAlumnoActivo={setAlumnoActivo}></ModalAlumnoRutinas>
                 ) : (
                     <span>Cargando alumnos..</span>
                 )}

@@ -13,3 +13,10 @@ export async function ListDietFoods(dietID)
     const dietaComida = await responseDietaComida.json();
     return dietaComida;
 }
+
+export async function GetFoodCals(dietID)
+{
+    const responseComidaCal = await fetch(`/api/api/dietas/${dietID}/comida/`);
+    const comidaCals = await responseComidaCal.json();
+    return comidaCals;
+}

@@ -21,6 +21,10 @@ export function DisplayDashboard()
         const fetchCliente = async () => {
             try {
                 const data = await GetUserID(token);
+                if (!data.nombre) {
+                    navigate("/comienzo");
+                    return;
+                }
                 setCliente(data);
             } catch (error) {
                 console.error('Error obteniendo cliente:', error);
@@ -30,11 +34,15 @@ export function DisplayDashboard()
     },[token,navigate])
     return (
         <React.Fragment>
-            <div className="dashboard-greetings w-full my-12 md:my-6">
-                <h2 className="dgreetings__title font-kodchasan text-4xl">Hola, {cliente ? cliente.nombre : '...'}</h2>
-                <h3 className="dgreetings__subtitle ml-24 font-kodchasan">Bienvenido al panel de MyCoach.</h3>
+            <div className="greetings-wrapper bg-white rounded-2xl shadow-lg overflow-hidden relative">
+                <div className="absolute top-0 right-0 size-32 bg-primary/10 rounded-full -translate-y-16 translate-x-16"></div>
+                <div className="absolute bottom-0 left-0 size-24 bg-secondary/10 rounded-full translate-y-12 -translate-x-12"></div>
+                <div className="dashboard-greetings w-full my-12 md:my-6 relative p-8">
+                    <h2 className="dgreetings__title font-inter text-4xl font-bold">¡Hola de nuevo, {cliente ? cliente.nombre : '...'}!</h2>
+                    <h3 className="dgreetings__subtitle my-6 font-inter">Bienvenido al panel de MyCoach.</h3>
+                </div>
             </div>
-            <div className="dashboard-container w-full flex flex-col md:grid md:grid-cols-3 md:gap-3">
+            <div className="dashboard-container w-full flex flex-col lg:grid lg:grid-cols-3 lg:gap-3">
                 <ListFoods />
                 <ListExercises />
                 <ShowControlData />
