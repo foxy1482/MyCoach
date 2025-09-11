@@ -12,6 +12,7 @@ export function TrainerDisplayRoutines()
     const [cliente, setCliente] = useState({});
     const [alumnos, setAlumnos] = useState([]);
     const [alumnoActivo, setAlumnoActivo] = useState(null);
+    
 
     useEffect(()=>
     {
@@ -24,7 +25,7 @@ export function TrainerDisplayRoutines()
         {
             const clienteData = await GetAuthUserID(token);
             setCliente(clienteData);
-
+            
             const alumnosData = await GetAllClients();
             setAlumnos(alumnosData);
 

@@ -5,12 +5,14 @@ import { GetUserID } from '../../../utils/getUser.js'
 import { ListFoods } from "./ListFoods.jsx"
 import { ListExercises } from "./ListExercises.jsx"
 import { ShowControlData } from "./ShowControlData.jsx"
+import { LoadScreen } from "../../utilities/LoadScreen.jsx"
 
 export function DisplayDashboard()
 {
     const [cliente, setCliente] = useState(null);
     let token = Cookies.get('token');
     const navigate = useNavigate();
+
     useEffect(()=>
     {
         if (!token)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import { GetUserID } from "../../../utils/getUser";
-import { GetFoodCals, GetUserDiet, ListDietFoods } from '../../../utils/getDiet.js';
+import { GetFoodCals, GetUserDiet, ListDietMeals } from '../../../utils/getDiet.js';
 import { useNavigate } from "react-router-dom";
 import { ShowSvg } from "../../utilities/ShowSvg.jsx"; 
 
@@ -30,7 +30,7 @@ export function ListFoods()
                 const dietaData = await GetUserDiet(clienteData.id);
                 setDieta(dietaData);
 
-                const comidasData = await ListDietFoods(dietaData.id);
+                const comidasData = await ListDietMeals(dietaData.id);
 
                 const comidasCalData = await GetFoodCals(dietaData.id);
                 

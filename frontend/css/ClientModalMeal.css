@@ -1,0 +1,5 @@
+.modal-meal__alimento.editmode
+{
+    display: grid;
+    grid-template-columns: minmax(auto, 1fr) minmax(auto, 2fr) minmax(auto, .5fr);
+}

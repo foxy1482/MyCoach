@@ -10,4 +10,4 @@ class Rutina(Base):
     plan_id = Column(Integer, ForeignKey("plan.id"), nullable=False)
     es_personalizada = Column(Boolean, nullable=False)
     
-    ejercicios = relationship("RutinaEjercicio", back_populates="rutina")
+    ejercicios = relationship("RutinaEjercicio", back_populates="rutina", cascade="all, delete-orphan")

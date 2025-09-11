@@ -5,12 +5,15 @@ import { GetAuthUserID, GetUserID } from '../../../utils/getUser';
 import { LoadAllIcons } from '../../utilities/LoadCRUDIcons';
 import { GetUserPlan } from '../../../utils/getUserPlan';
 import { ShowSvg } from '../../utilities/ShowSvg';
+import { DeleteWindow } from './DeleteWindow';
 
 export function DisplayProfile()
 {
     const [cliente, setCliente] = useState({});
     const [usuario, setUsuario] = useState(null);
     const [clientePlan, setClientePlan] = useState(null);
+    const [activeDelete, setActiveDelete] = useState(false);
+
     let token = Cookies.get('token');
     const navigate = useNavigate();
     useEffect(()=>{
@@ -34,6 +37,27 @@ export function DisplayProfile()
         };
         fetchCliente();
     },[token,navigate])
+
+    useEffect(() => {
+        const handleHashChange = () => {
+            const currentHash = window.location.hash;
+            setActiveDelete(currentHash === '#eliminar');
+        };
+
+        handleHashChange();
+        
+        window.addEventListener('hashchange', handleHashChange);
+        
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange);
+        };
+    }, []);
+
+    const handleDelete = ()=>
+    {
+        alert("Función en desarrollo.")
+    }
+
     if (cliente && clientePlan)
     {
         return (
@@ -44,7 +68,7 @@ export function DisplayProfile()
                             <div className="flex items-center space-x-6 my-6 lg:m-0">
                                 <div className='img-container relative w-fit'>
                                     <img
-                                    src=""
+                                    src="../../../../img/default-user.png"
                                     alt="Mi foto de perfil"
                                     className='size-24 rounded-full object-cover ring-4 ring-primary/20'
                                     />
@@ -74,7 +98,7 @@ export function DisplayProfile()
                                 </div>
                             </div>
                             <div className="flex flex-wrap gap-3">
-                                <button onClick={()=>alert("Función en desarrollo")} className="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-secondary transition duration-200 shadow-md hover:shadow-lg hover:-translate-y-1.5">
+                                <button onClick={()=>navigate("/rutinas")} className="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-secondary transition duration-200 shadow-md hover:shadow-lg hover:-translate-y-1.5">
                                     Ver mi rutina
                                 </button>
                                 <button onClick={()=>alert("Función en desarrollo")} className="border border-primary text-primary hover:text-white px-6 py-2 rounded-lg font-medium hover:bg-neutral-500 transition-colors duration-200 shadow-md">
@@ -83,7 +107,7 @@ export function DisplayProfile()
                                 <button onClick={()=>navigate("/perfil/logout")} className='bg-blue-500/10 border border-blue-400/20 rounded-lg px-3 text-blue-400 cursor-pointer'>
                                     <ShowSvg name={"logout"} size={32} className='text-blue-400'></ShowSvg>
                                 </button>
-                                <button onClick={()=>{}} className='bg-red-700/30 border border-red-800/20 rounded-lg px-3 cursor-pointer'>
+                                <button on onClick={() => setActiveDelete(true)} className='bg-red-700/30 border border-red-800/20 rounded-lg px-3 cursor-pointer'>
                                     <ShowSvg name={"delete"} size={32} className='text-red-800 fill-red-800'></ShowSvg>
                                 </button>
                             </div>
@@ -115,6 +139,14 @@ export function DisplayProfile()
                         </div>
                     </div>
                 </div>
+                {activeDelete ? (
+                    <DeleteWindow
+                    isOpen={true}
+                    onClose={()=> setActiveDelete(false)}
+                    onSave={handleDelete}
+                    perfil={cliente}
+                    ></DeleteWindow>
+                ) : ""}
             </div>
         )
     }

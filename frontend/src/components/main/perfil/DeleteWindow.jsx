@@ -1,12 +1,11 @@
 import { useState } from "react"
 
-export function DeleteWindow({ isOpen, onClose, type, onSave })
+export function DeleteWindow({ isOpen, onClose, perfil, onSave })
 {
-  const [newValue, setNewValue] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
   
-    await onSave("DELETE", newValue);
+    await onSave();
 
     onClose(); // cerrás el modal
     window.location.reload(); // recargás la página (si querés que refresque todo)
@@ -15,10 +14,11 @@ export function DeleteWindow({ isOpen, onClose, type, onSave })
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/50">
-      <div className="bg-white p-4 rounded-lg shadow-lg">
-        <h2 className="text-lg font-bold">Eliminar {type}</h2>
-        <p>Estás seguro de querer eliminar el {type}?</p>
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/80">
+      <div className="bg-white p-4 rounded-lg shadow-lg font-inter">
+        <h2 className="text-lg font-bold">Eliminar tu cuenta</h2>
+        <p>Estás seguro de querer eliminar tu cuenta, <span className="font-bold">{perfil.nombre + " "+ perfil.apellido}</span>?</p>
+        <p>Perderás acceso a tus rutinas, dietas y progreso guardado.</p>
         <div className="flex justify-end gap-2 mt-4">
           <button
             type="button"

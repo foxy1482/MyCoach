@@ -3,6 +3,7 @@ import { GetUserByID } from "../../../utils/getUser";
 import { LoadAllIcons } from "../../utilities/LoadCRUDIcons";
 import { GetUserPlan } from "../../../utils/getUserPlan";
 import { ShowSvg } from "../../utilities/ShowSvg";
+import { LoadScreen } from "../../utilities/LoadScreen";
 
 export function ClientBox({ cliente, userID, token })
 {
@@ -98,6 +99,6 @@ export function ClientBox({ cliente, userID, token })
         </div>
     )
     else return (
-        <p>Cargando perfil...</p>
+        <LoadScreen></LoadScreen>
     )
 }

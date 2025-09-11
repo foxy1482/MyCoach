@@ -9,14 +9,14 @@ export default function Header()
 {
     let niSize = "30";
     let token = Cookies.get('token');
-    const [esEntrenador, setEsEntrenador] = useState(null);
+    const [esEntrenador, setEsEntrenador] = useState(false);
     useEffect(()=>
     {
         const fetchData = async ()=>
         {
             const usuarioData = await GetAuthUserID(token);
             
-            if (usuarioData && usuarioData.rol.id == 2 || usuarioData.rol.id == 3) setEsEntrenador(true);
+            if (usuarioData && usuarioData.rol.id == 2 || usuarioData.rol.id == 3 || usuarioData.rol.id == 4) setEsEntrenador(true);
         }
         fetchData();
     })

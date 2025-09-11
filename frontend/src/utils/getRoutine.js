@@ -27,3 +27,17 @@ export async function GetExerciseData(routineID, exerciseID)
     const ejercicioData = await responseEjercicio.json();
     return ejercicioData;
 }
+
+export async function GetAllRoutines()
+{
+    const responseRutinas = await fetch(`/api/api/rutinas/`);
+    const rutinas = await responseRutinas.json();
+    return rutinas;
+}
+
+export async function GetAllExercises()
+{
+    const responseEjercicios = await fetch(`/api/api/rutinas/ejercicios/`);
+    const ejercicios = await responseEjercicios.json();
+    return ejercicios;
+}

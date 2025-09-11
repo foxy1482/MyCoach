@@ -53,6 +53,7 @@ def ver_comidas_detalle(dieta_id: int, db: Session = Depends(get_db)):
     SELECT 
             dc.id AS comida_id,
             dc.nombre AS nombre_comida,
+            dc.orden AS orden,
             a.id,
             a.nombre AS nombre_alimento,
             dca.cantidad_g
@@ -60,7 +61,7 @@ def ver_comidas_detalle(dieta_id: int, db: Session = Depends(get_db)):
         JOIN dieta_comida_alimento dca ON dca.dieta_comida_id = dc.id
         JOIN alimento a ON a.id = dca.alimento_id
         WHERE dc.dieta_id = :dieta_id
-        ORDER BY dc.id
+        ORDER BY dc.orden ASC
     """)
     rows = db.execute(tabla, {"dieta_id": dieta_id}).mappings().all()
     comidas_dict = defaultdict(lambda: {"comida_id": None, "nombre_comida": None, "alimentos": []})
@@ -70,6 +71,7 @@ def ver_comidas_detalle(dieta_id: int, db: Session = Depends(get_db)):
         if comidas_dict[comida_id]["comida_id"] is None:
             comidas_dict[comida_id]["comida_id"] = comida_id
             comidas_dict[comida_id]["nombre_comida"] = row["nombre_comida"]
+            comidas_dict[comida_id]["orden"] = row["orden"]
         comidas_dict[comida_id]["alimentos"].append({
             "id" : row["id"],
             "nombre": row["nombre_alimento"],
@@ -77,6 +79,13 @@ def ver_comidas_detalle(dieta_id: int, db: Session = Depends(get_db)):
         })
 
     return list(comidas_dict.values())
+
+@router.get("/comida/{comida_id}/alimento/{alimento_id}", response_model=DietaComidaAlimentoRead)
+def buscar_asignacion(comida_id: int, alimento_id: int, db: Session = Depends(get_db)):
+    dieta_comida = db.query(DietaComidaAlimento).filter(DietaComidaAlimento.dieta_comida_id == comida_id).filter(DietaComidaAlimento.alimento_id == alimento_id).first()
+    if not dieta_comida:
+        raise HTTPException(status_code=404, detail="La comida seleccionada no tiene ningún alimento asignado.")
+    return dieta_comida
 
 @router.put("/comida/{asignacion_id}/alimento/modificar", response_model=DietaComidaAlimentoRead)
 def modificar_asignacion(asignacion_id: int, dieta_comidaalimento_data: DietaComidaAlimentoUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):

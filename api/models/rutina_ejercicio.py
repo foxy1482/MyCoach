@@ -6,7 +6,7 @@ class RutinaEjercicio(Base):
     __tablename__ = "rutina_ejercicio"
     
     id = Column(Integer, primary_key=True, index=True)
-    rutina_id = Column(Integer, ForeignKey("rutina.id"), nullable=False)
+    rutina_id = Column(Integer, ForeignKey("rutina.id", ondelete="CASCADE"), nullable=False)
     ejercicio_id = Column(Integer, ForeignKey("ejercicio.id"), nullable=False)
     dia = Column(String, nullable=False)
     series = Column(Integer, nullable=False)

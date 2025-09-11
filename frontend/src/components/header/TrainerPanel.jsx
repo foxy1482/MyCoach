@@ -10,22 +10,30 @@ export function TrainerPanel({ activePanel, setActivePanel })
                     <ShowSvg size="20" name="cross"></ShowSvg>
                 </button>
                 <h2 className="font-semibold text-2xl p-7">Seleccione qué gestionar</h2>
-                <ul className="list flex flex-col bg-linear-to-b from-transparent to-secondary/15 p-7 gap-y-4">
+                <ul className="list flex flex-col bg-linear-to-b from-transparent to-secondary/15 px-7 py-5 gap-y-4">
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"usuario"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myClients/" className="font-coda text-lg text-start text-neutral-500">Mis clientes</a>
+                        <a href="/myClients/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis clientes</a>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                     <ShowSvg name={"planes"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myPlans/" className="font-coda text-lg text-start text-neutral-500">Mis planes</a>
+                        <a href="/myPlans/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis planes</a>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"rutinas"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myRoutines/" className="font-coda text-lg text-start text-neutral-500">Mis rutinas</a>
+                        <a href="/myRoutines/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis rutinas</a>
+                    </li>
+                    <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
+                        <ShowSvg name={"fire"} size={"20"} className="mx-3"></ShowSvg>
+                        <a href="/myExercises/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis ejercicios</a>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"dietas"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myDiets/" className="font-coda text-lg text-start text-neutral-500">Mis dietas</a>
+                        <a href="/myDiets/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis dietas</a>
+                    </li>
+                    <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
+                        <ShowSvg name={"apple"} size={"20"} className="mx-3"></ShowSvg>
+                        <a href="/myFoods/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis alimentos</a>
                     </li>
                 </ul>
             </div>

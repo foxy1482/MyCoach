@@ -22,6 +22,10 @@ def crear_alimento(alimento: AlimentoCreate, db: Session = Depends(get_db), user
     db.refresh(db_alimento)
     return db_alimento
 
+@router.get("/alimento/listar/", response_model=list[AlimentoRead])
+def listar_alimentos(db: Session = Depends(get_db)):
+    return db.query(Alimento).all()
+
 @router.get("/alimento/obtener/{id}", response_model=AlimentoRead)
 def obtener_alimento(id: int, db: Session = Depends(get_db)):
     alimento = db.query(Alimento).filter(Alimento.id == id).first()
@@ -35,7 +39,7 @@ def modificar_alimento(id: int, alimento_data: AlimentoUpdate, db: Session = Dep
     if not alimento:
         raise HTTPException(status_code=404, detail="El alimento no existe.")
     for field, value in alimento_data.dict(exclude_unset=True).items():
-        setattr(alimento_data, field, value)
+        setattr(alimento, field, value)
     
     db.commit()
     db.refresh(alimento)

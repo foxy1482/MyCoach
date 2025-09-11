@@ -15,8 +15,8 @@ def get_db():
         db.close()
 
 @router.post("/cliente_dieta/asignar", response_model= ClienteDietaRead)
-def asignar_dieta(clienteRutina: ClienteDietaCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
-    db_clienteRutina = ClienteDieta(**clienteRutina.dict())
+def asignar_dieta(clienteDieta: ClienteDietaCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
+    db_clienteRutina = ClienteDieta(**clienteDieta.dict())
     db.add(db_clienteRutina)
     db.commit()
     db.refresh(db_clienteRutina)

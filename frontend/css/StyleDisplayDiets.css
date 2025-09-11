@@ -1,0 +1,4 @@
+.diet-info .info
+{
+    grid-template-rows: minmax(auto, .5fr) minmax(auto, 2fr);
+}

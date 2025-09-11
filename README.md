@@ -296,6 +296,16 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
     * Ruta GET para buscar una comida específica.
 - /api/dietas/comida/crear
     * Ruta POST para crear una comida perteneciente a una dieta. **Requiere permisos**.
+- /api/dietas/alimento/modificar/{id}
+    * Ruta POST para crear un alimento. **Requiere permisos**.
+- /api/dietas/alimento/listar/
+    * Ruta GET para ver la lista de todos los alimentos.
+- /api/dietas/alimento/obtener/{id}
+    * Ruta GET para buscar un alimento específico por ID.
+- /api/dietas/alimento/modificar/{id}
+    * Ruta PUT para modificar los datos de un alimento. **Requiere permisos**.
+- /api/dietas/alimento/eliminar/{id}
+    * Ruta DELETE para eliminar un alimento. **Requiere permisos**.
 - /api/dietas/comida/modificar/{id}
     * Ruta PUT para modificar una comida perteneciente a una dieta. **Requiere permisos**.
 - /api/dietas/comida/eliminar/{id}
@@ -306,6 +316,8 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
     * Ruta GET para ver los detalles de cada comida perteneciente a una dieta.
 - /api/dietas/comida/alimento/asignar
     * Ruta POST para asignar un alimento a una comida, que pertenece a una dieta. **Requiere permisos**.
+- /api/dietas/comida/{comida_id}/alimento/{alimento_id}
+    * Ruta GET para buscar una asignación por medio de la relación comida-alimento.
 - /api/dietas/comida/{asignacion_id}/alimento/modificar
     * Ruta PUT para modificar la asignación de un alimento a una comida específica. **Requiere permisos**.
 - /api/dietas/comida/{asignacion_id}/alimento/eliminar
@@ -315,3 +327,32 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
 La API tiene algunas limitaciones para el usuario, que no deben de ser alteradas:
 - El token **no puede ser compartido**, debido a que contiene información sensible.
 - Los roles solo pueden modificarse con **permisos de administrador**
+
+# MyCoach
+## Descripción general
+### Propósito
+Este proyecto incluye una interfaz web para consumir la API.
+
+### Vista general
+Página de inicio
+![Inicio](/frontend/img/preview/pr-dashboard.png)
+
+Página de rutinas
+![Rutinas](/frontend/img/preview/pr-routines.png)
+
+Página de dietas
+![Dietas](/frontend/img/preview/pr-diets.png)
+
+Página de perfil
+![Perfil](/frontend/img/preview/pr-profile.png)
+
+## Configuración e instalación
+
+### Requisitos
+- Node.js 18+
+- npm o yarn
+
+### Instalación
+`cd frontend`
+`npm install`
+`npm run dev`

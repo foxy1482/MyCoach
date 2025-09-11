@@ -2,8 +2,8 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 class EjercicioCreate(BaseModel):
-    nombre: str = Field(..., min_length=1, max_length=20)
-    grupo_muscular: str = Field(..., min_length=1, max_length=16)
+    nombre: str = Field(..., min_length=1, max_length=40)
+    grupo_muscular: str = Field(..., min_length=1, max_length=20)
     
     class Config:
         schema_extra = {

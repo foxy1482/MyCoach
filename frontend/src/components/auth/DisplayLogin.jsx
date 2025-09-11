@@ -9,6 +9,7 @@ export function DisplayLogin() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [invalidos, setInvalidos] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,9 +24,10 @@ export function DisplayLogin() {
             });
         
             if (!response.ok) {
+                setInvalidos(true);
                 throw new Error('Credenciales inválidas');
             } 
-        
+            if (invalidos) setInvalidos(false);
             const data = await response.json();
             Cookies.set('token', data.token, { expires: 1})
             navigate("/dashboard");
@@ -59,6 +61,9 @@ export function DisplayLogin() {
                     <label htmlFor="form-password" className="authform__label select-none w-40 h-6 left-[32px] justify-start text-slate-500 text-base font-normal font-coda focus:outline-0">Contraseña</label>
                     <input type='password' required id="form-password" value={password} onChange={(e) => setPassword(e.target.value)} className="authform__input w-full p-2 font-inter text-neutral-800/60 h-8 left-[30px]  bg-neutral-200/50 rounded-lg" />
                     <input type="submit" value="Iniciar sesión" className="authform__input w-50 max-h-9 mx-auto border border-teal-300 text-teal-300 hover:text-white  hover:bg-teal-300 text-lg font-normal font-coda rounded-lg shadow-[0px_0px_15px_1px_rgba(44,158,170,0.35)] my-10 mt-12 cursor-pointer" />
+                    {invalidos ? (
+                        <span className="text-red-600 font-inter">Credenciales inválidas.</span>
+                    ) : ""}
                 </form>
                 <div className="auth-options mb-4 flex flex-col font-carlito text-neutral-500/80 mx-auto justify-center text-center">
                     <a href="/changepwd" className="options__forgot font-coda text-blue-500 transition hover:scale-120">¿Olvidaste tu contraseña?</a>

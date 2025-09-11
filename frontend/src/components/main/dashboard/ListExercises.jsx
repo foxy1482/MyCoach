@@ -40,7 +40,7 @@ export function ListExercises()
                 }
 
                 const filtrados = detalles.filter(d => d.dia === hoy);
-
+                console.log(filtrados)
                 const agrupados = filtrados.reduce((acc, ej) => {
                     if (!acc[ej.grupo_muscular]) acc[ej.grupo_muscular] = [];
                     acc[ej.grupo_muscular].push(ej);
@@ -61,24 +61,26 @@ export function ListExercises()
                     <ul className="ejercicios-lista space-y-3">
                     {ejercicios.map((ej) => (
                         <li key={ej.id} className="ejercicios-lista__li group flex items-center p-4 rounded-xl border transition duration-200 bg-primary/2 hover:shadow-md hover:bg-success/12 border-success/30">
-                        <div className="items-center font-inter text-lg text-center flex flex-row">
-                        <div className="size-4 rounded-full bg-neutral-500 m-0 group-hover:bg-success transition"></div>
-                            <div className="flex flex-col items-center m-auto">
+                        <div className="items-center w-full font-inter text-lg text-center flex flex-row">
+                            <div className="size-4 rounded-full bg-neutral-500 m-0 group-hover:bg-success transition mr-2"></div>
+                            <div className="flex flex-col items-center m-auto w-full">
                                 <span className="items-center font-inter my-auto font-semibold">{ej.nombre}</span>
                                 <span className="text-sm">{grupo}</span>
                             </div>
                         </div>
-                        <div className="items-center font-inter text-lg text-center flex flex-col">
-                            <span className="font-semibold">{ej.series}</span>
-                            <span className="text-sm">Series</span>
-                        </div>
-                        <div className="items-center font-inter text-lg text-center flex flex-col">
-                            <span className="font-semibold">{ej.repeticiones}</span>
-                            <span className="text-sm">Reps</span>
-                        </div>
-                        <div className="items-center text-secondary bg-white/80 rounded-lg shadow-lg font-inter text-lg text-center flex flex-col">
-                            <span className="font-semibold">{ej.rir}</span>
-                            <span className="text-sm">RIR</span>
+                        <div className="elements flex ml-auto w-6/12 justify-between">
+                            <div className="items-center font-inter text-lg text-center flex flex-col">
+                                <span className="font-semibold">{ej.series}</span>
+                                <span className="text-sm">Series</span>
+                            </div>
+                            <div className="items-center font-inter text-lg text-center flex flex-col">
+                                <span className="font-semibold">{ej.repeticiones}</span>
+                                <span className="text-sm">Reps</span>
+                            </div>
+                            <div className="items-center text-secondary bg-white/80 rounded-lg shadow-lg font-inter text-lg text-center flex flex-col">
+                                <span className="font-semibold">{ej.rir}</span>
+                                <span className="text-sm">RIR</span>
+                            </div>
                         </div>
                         </li>
                     ))}

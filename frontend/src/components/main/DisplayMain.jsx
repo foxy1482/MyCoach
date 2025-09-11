@@ -10,11 +10,17 @@ import { DisplayRoutines } from "./rutinas/DisplayRoutines.jsx";
 import { DisplayProfile } from "./perfil/DisplayProfile.jsx";
 import { DisplayMyClients } from "./trainer/DisplayMyClients.jsx";
 import { Logout } from "./perfil/Logout.jsx";
+import { DisplayMyRoutines } from "./trainer/DisplayMyRoutines.jsx";
+import { DisplayMyExercises } from "./trainer/DisplayMyExercises.jsx";
+import { DisplayDiets } from "./dietas/DisplayDiets.jsx";
+import { DisplayMyDiets } from "./trainer/DisplayMyDiets.jsx";
+import { DisplayMyFoods } from "./trainer/DisplayMyFoods.jsx";
+import { LoadScreen } from "../utilities/LoadScreen.jsx";
 
 export default function Main()
 {
     return (
-        <main className="main m-auto w-full max-w-[1600px] flex flex-col p-2.5 ">
+        <main className="main m-auto w-full max-w-[1460px] flex flex-col p-4 ">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<DisplayLogin />} ></Route>
@@ -24,12 +30,22 @@ export default function Main()
                     <Route path="/reset-password" element={<DisplayResetPW />} ></Route>
                     <Route path="/dashboard" element={<DisplayDashboard />} ></Route>
                     <Route path="/rutinas" element={<DisplayRoutines />}></Route>
-                    <Route path="/dietas" element={<div></div>}></Route>
-                    <Route path="/progreso" element={<div></div>}></Route>
-                    <Route path="/soporte" element={<div></div>}></Route>
+                    <Route path="/dietas" element={<DisplayDiets></DisplayDiets>}></Route>
+                    <Route path="/progreso" element={<div className="flex flex-col m-auto text-center text-2xl font-inter">
+                        <span className="font-bold text-9xl text-red-500">Error 404</span>
+                        Sección en desarrollo
+                        </div>}></Route>
+                    <Route path="/soporte" element={<div className="flex flex-col m-auto text-center text-2xl font-inter">
+                        <span className="font-bold text-9xl text-red-500">Error 404</span>
+                        Sección en desarrollo
+                        </div>}></Route>
                     <Route path="/perfil" element={<DisplayProfile></DisplayProfile>}></Route>
                     <Route path="/perfil/logout" element={<Logout></Logout>}></Route>
                     <Route path="/myClients" element={<DisplayMyClients/>}></Route>
+                    <Route path="/myRoutines" element={<DisplayMyRoutines/>}></Route>
+                    <Route path="/myExercises" element={<DisplayMyExercises/>}></Route>
+                    <Route path="/myDiets" element={<DisplayMyDiets></DisplayMyDiets>}></Route>
+                    <Route path="/myFoods" element={<DisplayMyFoods></DisplayMyFoods>}></Route>
                 </Routes>
             </BrowserRouter>
         </main>

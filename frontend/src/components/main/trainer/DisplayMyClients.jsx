@@ -7,10 +7,10 @@ import { GetAuthUserID, GetAllClients } from '../../../utils/getUser.js';
 export function DisplayMyClients()
 {
     let token = Cookies.get('token');
-    const [usuario, setUsuario] = useState(null);
+    const [usuario, setUsuario] = useState({"rol" : { "id" : 1 }});
     const [alumnos, setAlumnos] = useState(null);
     const [alumnoActivo, setAlumnoActivo] = useState(null);
-
+    const esDemo = usuario.rol.id == 4;
     useEffect(()=>
     {
         if (!token)
@@ -58,6 +58,11 @@ export function DisplayMyClients()
                 </div>
             </div>
             <div className="flex-1 overflow-y-auto">
+                {esDemo ? (
+                    <div className="flex mx-auto text-center justify-center">
+                        <span className="text-lg font-inter text-red-500">Algunas funciones están deshabilitadas en la versión demo.</span>
+                    </div>
+                ) : ""}
                 <div className="p-8">
                     {alumnos && alumnoActivo ? (
                         <ClientBox cliente={alumnoActivo} userID={alumnoActivo.usuario_id} token={token}></ClientBox>
