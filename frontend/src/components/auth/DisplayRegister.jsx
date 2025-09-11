@@ -15,7 +15,7 @@ export function DisplayRegister() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://mycoach-yqq1.onrender.com/auth/registro', {
+            const response = await fetch('https://mycoach.up.railway.app/auth/registro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
