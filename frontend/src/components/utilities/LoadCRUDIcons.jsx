@@ -4,6 +4,7 @@ import { ShowSvg } from "./ShowSvg"
 import { ModifyWindow } from "../main/perfil/ModifyWindow.jsx";
 import { GetUserID } from "../../utils/getUser";
 import { DeleteWindow } from "../main/perfil/DeleteWindow.jsx";
+import { API_URL } from "../../utils/config.js";
 
 export function LoadAllIcons({ size, fieldType, buttons = 2, type, campo, currentValue, method = null, currentClient = null })
 {
@@ -36,7 +37,7 @@ export function LoadAllIcons({ size, fieldType, buttons = 2, type, campo, curren
             {
                 case "perfil":
                     cliente[campo] = newValue;
-                    const responsePerfil = await fetch(`/api/api/clientes/${cliente.id}`,{
+                    const responsePerfil = await fetch(`${API_URL}/api/clientes/${cliente.id}`,{
                         method: action,
                         headers: {
                             'Content-Type' : 'application/json'
@@ -52,7 +53,7 @@ export function LoadAllIcons({ size, fieldType, buttons = 2, type, campo, curren
             switch (type)
             {
                 case "perfil":
-                    const response = await fetch(`/api/api/clientes/${cliente.id}`,{
+                    const response = await fetch(`${API_URL}/api/clientes/${cliente.id}`,{
                         method: action,
                         headers: {
                             'Content-Type' : 'application/json'

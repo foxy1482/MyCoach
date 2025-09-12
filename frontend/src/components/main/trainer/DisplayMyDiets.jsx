@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { GetAuthUserID } from "../../../utils/getUser";
 import { ShowSvg } from "../../utilities/ShowSvg";
 import { CreateWindowD } from "./dietaCRUD/CreateWindow";
+import { API_URL } from "../../../utils/config";
 
 export function DisplayMyDiets()
 {
@@ -44,7 +45,7 @@ export function DisplayMyDiets()
     {
         if (action == "POST")
         {
-            const responseCrD = await fetch("/api/api/dietas/crear",
+            const responseCrD = await fetch(`${API_URL}/api/dietas/crear`,
                 {
                     method: "POST",
                     headers: {
@@ -65,7 +66,7 @@ export function DisplayMyDiets()
         }
         else if (action == "PUT")
         {
-            const responseCrD = await fetch(`/api/api/dietas/modificar/${dietaActiva.id}`,
+            const responseCrD = await fetch(`${API_URL}/api/dietas/modificar/${dietaActiva.id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -86,7 +87,7 @@ export function DisplayMyDiets()
         }
         else if (action == "DELETE")
         {
-            const responseCrD = await fetch(`/api/api/dietas/eliminar/${dietaActiva.id}`,
+            const responseCrD = await fetch(`${API_URL}/api/dietas/eliminar/${dietaActiva.id}`,
                 {
                     method: "DELETE",
                     headers: {

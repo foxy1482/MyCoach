@@ -12,6 +12,7 @@ import { ListDietMeals, GetFood, GetFoodCals } from "../../../utils/getDiet.js";
 import { ClientModalMeal } from "./dietaCRUD/ClientModalMeal.jsx";
 import { ModifyWindowD } from "./dietaCRUD/ModifyWindow.jsx";
 import { DeleteWindowD } from "./dietaCRUD/DeleteWindow.jsx";
+import { API_URL } from "../../../utils/config.js";
 
 export function DietBox({ dieta, token, activeWindowDelete, setActiveWindowDelete, activeWindowDeleteD, setActiveWindowDeleteD, handleSaveDieta
     , activeWindowModifyD, setActiveWindowModifyD
@@ -104,7 +105,7 @@ export function DietBox({ dieta, token, activeWindowDelete, setActiveWindowDelet
             if (!newValue) return;
             try
             {
-                const responseAsC = await fetch(`/api/api/dietas/comida/crear/`, {
+                const responseAsC = await fetch(`${API_URL}/api/dietas/comida/crear/`, {
                     method: "POST",
                     headers: {
                         'Content-Type' : 'application/json'
@@ -131,7 +132,7 @@ export function DietBox({ dieta, token, activeWindowDelete, setActiveWindowDelet
             if (!newValue) return;
             try
             {
-                const responseAsC = await fetch(`/api/api/dietas/comida/modificar/${newValue.id}`, {
+                const responseAsC = await fetch(`${API_URL}/api/dietas/comida/modificar/${newValue.id}`, {
                     method: "POST",
                     headers: {
                         'Content-Type' : 'application/json'
@@ -155,7 +156,7 @@ export function DietBox({ dieta, token, activeWindowDelete, setActiveWindowDelet
         }
         else if (action == "DELETE")
         {
-            const responseAsC = await fetch(`/api/api/dietas/comida/eliminar/${id}`, {
+            const responseAsC = await fetch(`${API_URL}/api/dietas/comida/eliminar/${id}`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type' : 'application/json'

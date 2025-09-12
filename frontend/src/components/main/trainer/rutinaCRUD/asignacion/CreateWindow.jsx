@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { GetUserID } from "../../../../../utils/getUser";
 import { ShowSvg } from "../../../../utilities/ShowSvg";
+import { API_URL } from "../../../../../utils/config"; 
 
 export function CreateWindow({ onSave, onClose }) {
     const [ejercicios, setEjercicios] = useState([]);
@@ -25,7 +26,7 @@ export function CreateWindow({ onSave, onClose }) {
             setLoading(true);
             try {
                 const clienteData = await GetUserID(token);
-                const res = await fetch("/api/api/rutinas/ejercicios/");
+                const res = await fetch(`${API_URL}/api/rutinas/ejercicios/`);
                 const data = await res.json();
                 setEjercicios(data);
             } catch (err) {

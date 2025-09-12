@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { GetUserID } from "../../../utils/getUser";
 import { ShowSvg } from "../../utilities/ShowSvg";
 import { GetRoutineAsignationData } from "../../../utils/getRoutine";
+import { API_URL } from "../../../utils/config";
 
 export function ModalListRoutines({ action, nuevaRutina, setNuevaRutina, rutina, setRutina, alumnoActivo, setAlumnoActivo }) {
     const [rutinas, setRutinas] = useState([]);
@@ -19,7 +20,7 @@ export function ModalListRoutines({ action, nuevaRutina, setNuevaRutina, rutina,
             try {
                 const clienteData = await GetUserID(token);
 
-                const res = await fetch("/api/api/rutinas/");
+                const res = await fetch(`${API_URL}/api/rutinas/`);
                 const data = await res.json();
                 setRutinas(data);
             } catch (err) {
@@ -47,7 +48,7 @@ export function ModalListRoutines({ action, nuevaRutina, setNuevaRutina, rutina,
             const fechaHoy = new Date().toISOString();
             const fecha_asignacion = fechaHoy.slice(0,10);
 
-            await fetch("/api/api/clientes/cliente_rutina/asignar/", {
+            await fetch(`${API_URL}/api/clientes/cliente_rutina/asignar/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -77,7 +78,7 @@ export function ModalListRoutines({ action, nuevaRutina, setNuevaRutina, rutina,
             const fechaHoy = new Date().toISOString();
             const fecha_asignacion = fechaHoy.slice(0,10);
 
-            const response = await fetch(`/api/api/clientes/cliente_rutina/${cliente_id}`, {
+            const response = await fetch(`${API_URL}/api/clientes/cliente_rutina/${cliente_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type' : 'application/json'

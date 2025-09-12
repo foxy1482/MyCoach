@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer()
 {
+    const navigate = useNavigate();
     return (
         <footer className="footer relative flex flex-col mt-12 bg-white w-full ">
             
@@ -17,17 +19,17 @@ export default function Footer()
                     <div className="footer-sections max-w-72 m-auto my-0 flex flex-col p-4">
                         <h3 className="text-center text-black text-lg font-normal font-doppio-one">Secciones</h3>
                         <ul className="list-disc font-carlito">
-                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><a href="/rutinas">Mis rutinas</a></li>
-                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><a href="/dietas">Mis dietas</a></li>
-                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><a href="/progreso">Mis controles</a></li>
+                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><button className="cursor-pointer" onClick={()=> navigate("/rutinas")}>Mis rutinas</button></li>
+                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><button className="cursor-pointer" onClick={()=> navigate("/dietas")}>Mis dietas</button></li>
+                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><button className="cursor-pointer" onClick={()=> navigate("/progreso")}>Mis controles</button></li>
                         </ul>
                     </div>
                     <div className="footer-auth max-w-72 m-auto my-0 flex flex-col p-4">
                         <h3 className="text-center text-black text-lg font-normal font-doppio-one">Autenticación</h3>
                         <ul className="list-disc font-carlito">
-                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><a href="/perfil">Ver perfil</a></li>
-                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><a href="/perfil/logout">Cerrar sesión</a></li>
-                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><a href="/perfil#eliminar">Eliminar mi cuenta</a></li>
+                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><button className="cursor-pointer" onClick={()=> navigate("/perfil")}>Ver perfil</button></li>
+                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><button className="cursor-pointer" onClick={()=> navigate("/perfil/logout")}>Cerrar sesión</button></li>
+                            <li className="ml-2.5 text-zinc-700 font-normal font-carlito"><button className="cursor-pointer" onClick={()=> navigate("/perfil#eliminar")}>Eliminar mi cuenta</button></li>
                         </ul>
                     </div>
                     <div className="footer-contact max-w-72 m-auto my-0 flex flex-col col-span-2 mb-12">
@@ -40,11 +42,11 @@ export default function Footer()
                 </div>
             </div>
             <picture alt="" className="absolute left-0 bottom-0">
-                <source media="(max-width: 500px)" srcSet="../../../img/footer-figure.svg" />
-                <source media="(min-width: 501px) and (max-width: 1120px)" srcSet="../../../img/footer-figure2.svg" />
-                <source media="(min-width: 1121px) and (max-width: 1550px)" srcSet="../../../img/footer-figure3.svg" />
-                <source media="(max-width: 1800px)" srcSet="../../../img/footer-figure4.svg" />
-                <img src="../../../img/footer-figure3.svg" alt="" />
+                <source media="(max-width: 500px)" srcSet="/img/footer-figure.svg" />
+                <source media="(min-width: 501px) and (max-width: 1120px)" srcSet="/img/footer-figure2.svg" />
+                <source media="(min-width: 1121px) and (max-width: 1550px)" srcSet="/img/footer-figure3.svg" />
+                <source media="(max-width: 1800px)" srcSet="/img/footer-figure4.svg" />
+                <img src="/img/footer-figure3.svg" alt="" />
             </picture>
         </footer>
     )

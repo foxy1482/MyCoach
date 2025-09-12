@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 import { GetUserID } from "../../../utils/getUser";
 import { ShowSvg } from "../../utilities/ShowSvg";
 import { GetRoutineAsignationData } from "../../../utils/getRoutine";
+import { GetAllDiets } from "../../../utils/getDiet";
+import { API_URL } from "../../../utils/config";
 
 export function ModalListDiets({ action, nuevaDieta, setNuevaDieta, dieta, setDieta, alumnoActivo, setAlumnoActivo }) {
     const [dietas, setDietas] = useState([]);
@@ -19,7 +21,7 @@ export function ModalListDiets({ action, nuevaDieta, setNuevaDieta, dieta, setDi
             try {
                 const clienteData = await GetUserID(token);
 
-                const res = await fetch("/api/api/dietas/");
+                const res = await GetAllDiets();
                 const data = await res.json();
                 setDietas(data);
             } catch (err) {
@@ -37,7 +39,7 @@ export function ModalListDiets({ action, nuevaDieta, setNuevaDieta, dieta, setDi
     );
 
     // Asignar dieta al alumno
-    const handleAsignRoutine = async () => {
+    const handleAsignDiet = async () => {
         if (!dietaSeleccionada) return;
         setLoading(true);
         try {
@@ -47,7 +49,7 @@ export function ModalListDiets({ action, nuevaDieta, setNuevaDieta, dieta, setDi
             const fechaHoy = new Date().toISOString();
             const fecha_asignacion = fechaHoy.slice(0,10);
 
-            await fetch("/api/api/clientes/cliente_dieta/asignar/", {
+            await fetch(`${API_URL}/api/clientes/cliente_dieta/asignar/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -77,7 +79,7 @@ export function ModalListDiets({ action, nuevaDieta, setNuevaDieta, dieta, setDi
             const fechaHoy = new Date().toISOString();
             const fecha_asignacion = fechaHoy.slice(0,10);
 
-            const response = await fetch(`/api/api/clientes/cliente_dieta/${cliente_id}`, {
+            const response = await fetch(`${API_URL}/api/clientes/cliente_dieta/${cliente_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -148,7 +150,7 @@ export function ModalListDiets({ action, nuevaDieta, setNuevaDieta, dieta, setDi
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
                 disabled={!dietaSeleccionada || loading}
-                onClick={action == "ASIGN" ? handleAsignRoutine : action == "MODIFY" ? handleModifyAsign : ""}
+                onClick={action == "ASIGN" ? handleAsignDiet : action == "MODIFY" ? handleModifyAsign : ""}
                 type="button"
             >
                 Seleccionar dieta

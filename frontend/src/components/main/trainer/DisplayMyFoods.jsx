@@ -8,6 +8,7 @@ import { GetAllFoods } from '../../../utils/getDiet.js';
 import { CreateWindow } from './alimentosCRUD/CreateWindow.jsx'
 import { ShowSvg } from '../../utilities/ShowSvg.jsx';
 import { FoodBox } from './FoodBox.jsx';
+import { API_URL } from '../../../utils/config.js';
 
 export function DisplayMyFoods()
 {
@@ -44,7 +45,7 @@ export function DisplayMyFoods()
     const handleSaveAlimento = async (action, newValue = null)=>{
             if (action == "POST")
             {
-                const responseCrEj = await fetch(`/api/api/dietas/alimento/crear`,
+                const responseCrEj = await fetch(`${API_URL}/api/dietas/alimento/crear`,
                     {
                         method: 'POST',
                         headers : {
@@ -66,7 +67,7 @@ export function DisplayMyFoods()
             }
             else if (action == "PUT")
             {
-                const responseModEj = await fetch(`/api/api/dietas/alimento/modificar/${alimentoActivo.id}`,
+                const responseModEj = await fetch(`${API_URL}/api/dietas/alimento/modificar/${alimentoActivo.id}`,
                     {
                         method: 'PUT',
                         headers : {
@@ -89,7 +90,7 @@ export function DisplayMyFoods()
             }
             else if (action == "DELETE")
             {
-                const responseElimEj = await fetch(`/api/api/dietas/alimento/eliminar/${alimentoActivo.id}`,
+                const responseElimEj = await fetch(`${API_URL}/api/dietas/alimento/eliminar/${alimentoActivo.id}`,
                     {
                         method: 'DELETE',
                         headers : {

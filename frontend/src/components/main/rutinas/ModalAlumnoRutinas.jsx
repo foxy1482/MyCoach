@@ -3,6 +3,7 @@ import { ModalListRoutines } from "./ModalListRoutines";
 import { GetUserRoutine, ListRExercises, GetExerciseData } from "../../../utils/getRoutine";
 import { ShowSvg } from '../../utilities/ShowSvg.jsx'
 import { GetPlanByID } from "../../../utils/getPlan.js";
+import { API_URL } from "../../../utils/config.js";
 
 export function ModalAlumnoRutinas({ token, alumnoActivo, setAlumnoActivo }) {
     const [ejercicios, setEjercicios] = useState(null);
@@ -101,7 +102,7 @@ export function ModalAlumnoRutinas({ token, alumnoActivo, setAlumnoActivo }) {
 
     const handleEliminar = async () => {
     try {
-        await fetch(`/api/api/clientes/cliente_rutina/${alumnoActivo.id}`, {
+        await fetch(`${API_URL}/api/clientes/cliente_rutina/${alumnoActivo.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type' : 'application/json'

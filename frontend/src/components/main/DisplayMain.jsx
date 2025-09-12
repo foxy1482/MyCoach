@@ -2,7 +2,7 @@ import React from "react";
 import { DisplayLogin } from "../auth/DisplayLogin";
 import { DisplayRegister } from "../auth/DisplayRegister";
 import { DisplayStart } from './DisplayStart.jsx'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { DisplayDashboard } from "./dashboard/DisplayDashboard";
 import { DisplayChangePW } from "../auth/DisplayChangePW.jsx";
 import { DisplayResetPW } from "../auth/DisplayResetPW.jsx";
@@ -21,7 +21,6 @@ export default function Main()
 {
     return (
         <main className="main m-auto w-full max-w-[1460px] flex flex-col p-4 ">
-            <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<DisplayLogin />} ></Route>
                     <Route path="/register" element={<DisplayRegister />} ></Route>
@@ -47,7 +46,6 @@ export default function Main()
                     <Route path="/myDiets" element={<DisplayMyDiets></DisplayMyDiets>}></Route>
                     <Route path="/myFoods" element={<DisplayMyFoods></DisplayMyFoods>}></Route>
                 </Routes>
-            </BrowserRouter>
         </main>
     )
 }

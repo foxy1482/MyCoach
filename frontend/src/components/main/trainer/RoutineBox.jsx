@@ -11,6 +11,7 @@ import { ModifyWindow } from './rutinaCRUD/asignacion/ModifyWindow.jsx'
 import { DeleteWindow } from './rutinaCRUD/asignacion/DeleteWindow.jsx'
 import { CreateWindow } from "./rutinaCRUD/asignacion/CreateWindow.jsx";
 import { DeleteWindowR } from "./rutinaCRUD/DeleteWindow.jsx";
+import { API_URL } from "../../../utils/config.js";
 
 
 export function RoutineBox({ rutina, token, activeWindowDelete, setActiveWindowDelete, activeRoutineWindowDelete, setActiveRoutineWindowDelete, handleSaveRutina })
@@ -72,7 +73,7 @@ export function RoutineBox({ rutina, token, activeWindowDelete, setActiveWindowD
                 const rutina_id = rutina.id;
                 const ejercicio_id = newValue.id;
                 
-                await fetch("/api/api/rutinas/asignar_ejercicio", {
+                await fetch(`${API_URL}/api/rutinas/asignar_ejercicio`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -95,7 +96,7 @@ export function RoutineBox({ rutina, token, activeWindowDelete, setActiveWindowD
         }
         else if (action == "PUT")
         {
-            const responseModEj = await fetch(`/api/api/rutinas/${rutina.id}/${ejercicioSeleccionado.ejercicio_id}/modificar/`,
+            const responseModEj = await fetch(`${API_URL}/api/rutinas/${rutina.id}/${ejercicioSeleccionado.ejercicio_id}/modificar/`,
                 {
                     method: 'PUT',
                     headers : {
@@ -116,7 +117,7 @@ export function RoutineBox({ rutina, token, activeWindowDelete, setActiveWindowD
         }
         else if (action == "DELETE")
         {
-            const responseElimEj = await fetch(`/api/api/rutinas/${rutina.id}/${ejercicioSeleccionado.ejercicio_id}/eliminar/`,
+            const responseElimEj = await fetch(`${API_URL}/api/rutinas/${rutina.id}/${ejercicioSeleccionado.ejercicio_id}/eliminar/`,
                 {
                     method: 'DELETE',
                     headers : {

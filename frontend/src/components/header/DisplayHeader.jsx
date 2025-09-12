@@ -4,11 +4,14 @@ import '../../../css/StyleNavbar.css'
 import { LoadNavIcon } from "../utilities/LoadNavIcon";
 import Cookies from 'js-cookie'
 import { GetAuthUserID } from "../../utils/getUser";
+import { useLocation } from "react-router-dom";
 
 export default function Header()
 {
     let niSize = "30";
     let token = Cookies.get('token');
+    const ruta = useLocation();
+    const [prevPath, setPrevPath] = useState(ruta.pathname);
     const [esEntrenador, setEsEntrenador] = useState(false);
     useEffect(()=>
     {
@@ -16,10 +19,11 @@ export default function Header()
         {
             const usuarioData = await GetAuthUserID(token);
             
-            if (usuarioData && usuarioData.rol.id == 2 || usuarioData.rol.id == 3 || usuarioData.rol.id == 4) setEsEntrenador(true);
+            if (usuarioData && usuarioData.rol.id != 1) setEsEntrenador(true);
+            else if (usuarioData && usuarioData.rol.id === 1) setEsEntrenador(false);
         }
         fetchData();
-    })
+    },[ruta.pathname, prevPath])
     return (
         <header className="header w-full h-12 md:h-9 bg-green-300 relative mb-16 flex items-center">
             <div className="header-wrapper h-full w-fit grid grid-cols-3 mb-16 m-auto">
@@ -31,7 +35,7 @@ export default function Header()
                 </div>
                 <div className="header__nav-container m-auto w-full flex justify-center">
                     <div className="header__nav min-w-96 w-auto h-13 flex justify-center text-center absolute -bottom-12">
-                        <h2 className="w-fit h-8 m-auto justify-start -mt-1 text-emerald-800 text-2xl font-normal font-kodchasan">myCOACH!</h2>
+                        <h2 className="w-fit select-none h-8 m-auto justify-start -mt-1 text-emerald-800 text-2xl font-normal font-kodchasan">myCOACH!</h2>
                     </div>
                 </div>
                 <div className="right-nav-container flex flex-row m-x-auto w-full justify-end items-center max-h-8">

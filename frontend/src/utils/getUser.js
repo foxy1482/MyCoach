@@ -1,6 +1,8 @@
+import { API_URL } from "./config";
+
 export async function GetUserID(token)
 {
-    const responseUsuario = await fetch('/api/auth/perfil', {
+    const responseUsuario = await fetch(`${API_URL}/auth/perfil`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -10,14 +12,14 @@ export async function GetUserID(token)
         })
     });
     const usuario = await responseUsuario.json();
-    const responseCliente = await fetch(`/api/api/clientes/userID/${usuario.id}`);
+    const responseCliente = await fetch(`${API_URL}/api/clientes/userID/${usuario.id}`);
     const cliente = await responseCliente.json();
     return cliente;
 }
 
 export async function GetAuthUserID(token)
 {
-    const responseUsuario = await fetch('/api/auth/perfil', {
+    const responseUsuario = await fetch(`${API_URL}/auth/perfil`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,14 +34,14 @@ export async function GetAuthUserID(token)
 
 export async function GetAllClients()
 {
-    const responseClientes = await fetch("/api/api/clientes/");
+    const responseClientes = await fetch(`${API_URL}/api/clientes/`);
     const clientes = await responseClientes.json();
     return clientes;
 }
 
 export async function GetUserByID(id, token)
 {
-    const response = await fetch(`/api/auth/usuario/${id}`, {
+    const response = await fetch(`${API_URL}/auth/usuario/${id}`, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'

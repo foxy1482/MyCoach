@@ -3,6 +3,7 @@ import { ShowSvg } from "../../../utilities/ShowSvg"
 import '../../../../../css/ClientModalMeal.css'
 import { GetMealFoodAD } from "../../../../utils/getDiet";
 import { ModalListFoods } from "./asignacion/ModalListFoods";
+import { API_URL } from "../../../../utils/config";
 
 export function ClientModalMeal({ comida, modalActivo, setModalActivo, startReload, reload, token }) {
     const [editMode, setEditMode] = useState(false);
@@ -38,7 +39,7 @@ export function ClientModalMeal({ comida, modalActivo, setModalActivo, startRelo
         for (const alimentoId of Object.keys(selectedAlimentos).filter(id => selectedAlimentos[id])) {
             const alimento = comida.alimentos.find(a => a.id === Number(alimentoId));
             const asignData = await GetMealFoodAD(comida.comida_id, alimento.id);
-            await fetch(`/api/api/dietas/comida/${asignData.id}/alimento/modificar`, {
+            await fetch(`${API_URL}/api/dietas/comida/${asignData.id}/alimento/modificar`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -73,7 +74,7 @@ export function ClientModalMeal({ comida, modalActivo, setModalActivo, startRelo
         for (const alimentoId of alimentosAEliminar) {
             const alimento = comida.alimentos.find(a => a.id === Number(alimentoId));
             const asignData = await GetMealFoodAD(comida.comida_id, alimento.id);
-            await fetch(`/api/api/dietas/comida/${asignData.id}/alimento/eliminar`, {
+            await fetch(`${API_URL}/api/dietas/comida/${asignData.id}/alimento/eliminar`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

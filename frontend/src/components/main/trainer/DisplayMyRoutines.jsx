@@ -6,6 +6,7 @@ import { GetAuthUserID, GetAllClients } from '../../../utils/getUser.js';
 import { GetAllRoutines } from '../../../utils/getRoutine.js';
 import { CreateWindowR } from "./rutinaCRUD/CreateWindow.jsx";
 import { ShowSvg } from '../../utilities/ShowSvg.jsx';
+import { API_URL } from '../../../utils/config.js';
 
 export function DisplayMyRoutines()
 {
@@ -43,7 +44,7 @@ export function DisplayMyRoutines()
     const handleSaveRutina = async (action, newValue = null)=>{
             if (action == "POST")
             {
-                const responseCrEj = await fetch(`/api/api/rutinas/crear`,
+                const responseCrEj = await fetch(`${API_URL}/api/rutinas/crear`,
                     {
                         method: 'POST',
                         headers : {
@@ -63,7 +64,7 @@ export function DisplayMyRoutines()
             }
             else if (action == "PUT")
             {
-                const responseModEj = await fetch(`/api/api/rutinas/modificar/${rutinaActiva.id}`,
+                const responseModEj = await fetch(`${API_URL}/api/rutinas/modificar/${rutinaActiva.id}`,
                     {
                         method: 'PUT',
                         headers : {
@@ -83,7 +84,7 @@ export function DisplayMyRoutines()
             }
             else if (action == "DELETE")
             {
-                const responseElimEj = await fetch(`/api/api/rutinas/eliminar/${rutinaActiva.id}`,
+                const responseElimEj = await fetch(`${API_URL}/api/rutinas/eliminar/${rutinaActiva.id}`,
                     {
                         method: 'DELETE',
                         headers : {

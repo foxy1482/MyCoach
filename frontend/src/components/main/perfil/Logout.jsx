@@ -8,14 +8,11 @@ export function Logout()
     let token = Cookies.get('token');
     useEffect(()=>
     {
-        if (!token)
-        {
-            navigate('/');
-            return;
-        }
-    },[])
+        Cookies.remove('token');
+        navigate('/');
+        return;
+    },[navigate])
 
-    Cookies.remove('token');
     return (
         <div>
             <div className="font-coda text-center text-5xl w-full">Cerrando sesión...</div>

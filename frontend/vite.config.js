@@ -5,7 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    outDir: "dist",
+  },
   server: {
+    historyApiFallback: true,
     proxy: {
       '/api': {
         target: 'https://mycoach.up.railway.app',
@@ -13,5 +17,9 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
       }
     }
-  }
+  },
+  preview:
+  {
+    historyApiFallback: true,
+  },
 })

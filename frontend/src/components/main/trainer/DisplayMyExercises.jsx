@@ -6,6 +6,7 @@ import { GetAuthUserID, GetAllClients } from '../../../utils/getUser.js';
 import { GetAllExercises } from '../../../utils/getRoutine.js';
 import { CreateWindow } from './ejercicioCRUD/CreateWindow.jsx'
 import { ShowSvg } from '../../utilities/ShowSvg.jsx';
+import { API_URL } from '../../../utils/config.js';
 
 export function DisplayMyExercises()
 {
@@ -42,7 +43,7 @@ export function DisplayMyExercises()
     const handleSaveEjercicio = async (action, newValue = null)=>{
             if (action == "POST")
             {
-                const responseCrEj = await fetch(`/api/api/rutinas/ejercicios/crear`,
+                const responseCrEj = await fetch(`${API_URL}/api/rutinas/ejercicios/crear`,
                     {
                         method: 'POST',
                         headers : {
@@ -61,7 +62,7 @@ export function DisplayMyExercises()
             }
             else if (action == "PUT")
             {
-                const responseModEj = await fetch(`/api/api/rutinas/ejercicios/modificar/${ejercicioActivo.id}`,
+                const responseModEj = await fetch(`${API_URL}/api/rutinas/ejercicios/modificar/${ejercicioActivo.id}`,
                     {
                         method: 'PUT',
                         headers : {
@@ -80,7 +81,7 @@ export function DisplayMyExercises()
             }
             else if (action == "DELETE")
             {
-                const responseElimEj = await fetch(`/api/api/rutinas/ejercicios/eliminar/${ejercicioActivo.id}`,
+                const responseElimEj = await fetch(`${API_URL}/api/rutinas/ejercicios/eliminar/${ejercicioActivo.id}`,
                     {
                         method: 'DELETE',
                         headers : {

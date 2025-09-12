@@ -10,7 +10,7 @@
 .header__nav
 {
     grid-row: 1 / 1;
-    background-image: url(../img/navbar-bg2.svg);
+    background-image: url(../public/img/navbar-bg2.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-clip:content-box;

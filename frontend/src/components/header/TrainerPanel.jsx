@@ -1,8 +1,10 @@
 import React from "react";
 import { ShowSvg } from "../utilities/ShowSvg";
+import { useNavigate } from "react-router-dom";
 
 export function TrainerPanel({ activePanel, setActivePanel })
 {
+    const navigate = useNavigate();
     return (
         <div className="oscuro top-0 left-0 fixed w-full h-full flex items-center bg-black/25 z-20">
             <div className="bg-white shadow-lg p-1 m-auto flex flex-col">
@@ -13,27 +15,27 @@ export function TrainerPanel({ activePanel, setActivePanel })
                 <ul className="list flex flex-col bg-linear-to-b from-transparent to-secondary/15 px-7 py-5 gap-y-4">
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"usuario"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myClients/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis clientes</a>
+                        <button onClick={()=> navigate("/myClients/")} className="cursor-pointer font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis clientes</button>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                     <ShowSvg name={"planes"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myPlans/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis planes</a>
+                        <button onClick={()=> navigate("/myPlans/")} className="cursor-pointer font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis planes</button>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"rutinas"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myRoutines/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis rutinas</a>
+                        <button onClick={()=> navigate("/myRoutines/")} className="cursor-pointer font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis rutinas</button>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"fire"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myExercises/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis ejercicios</a>
+                        <button onClick={()=> navigate("/myExercises/")} className="cursor-pointer font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis ejercicios</button>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"dietas"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myDiets/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis dietas</a>
+                        <button onClick={()=> navigate("/myDiets/")} className="cursor-pointer font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis dietas</button>
                     </li>
                     <li className="p-3 bg-primary/10 hover:bg-secondary/25 rounded-lg flex flex-row transition duration-100 cursor-pointer">
                         <ShowSvg name={"apple"} size={"20"} className="mx-3"></ShowSvg>
-                        <a href="/myFoods/" className="font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis alimentos</a>
+                        <button onClick={()=> navigate("/myFoods/")} className="cursor-pointer font-coda text-lg text-start text-neutral-500 py-1 w-full">Mis alimentos</button>
                     </li>
                 </ul>
             </div>

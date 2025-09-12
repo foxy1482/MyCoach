@@ -35,6 +35,7 @@ export function ModifyWindow({ isOpen, alimento, onClose, onSave })
                 <input
                     id="form-calorias"
                     type="number"
+                    step="any"
                     value={newValue.calorias_100g}
                     onChange={(e) => setNewValue(prev => ({ ...prev, calorias_100g: e.target.value }))}
                     className="border border-transparent px-2 my-auto border-b-2 border-b-neutral-600 w-fit font-coda focus:outline-0 focus:border-b-primary focus:scale-110 mx-4 transition"
@@ -45,6 +46,7 @@ export function ModifyWindow({ isOpen, alimento, onClose, onSave })
                 <input
                     id="form-proteinas"
                     type="number"
+                    step="any"
                     value={newValue.proteinas}
                     onChange={(e) => setNewValue(prev => ({ ...prev, proteinas: e.target.value }))}
                     className="border border-transparent px-2 my-auto border-b-2 border-b-neutral-600 w-fit font-coda focus:outline-0 focus:border-b-primary focus:scale-110 mx-4 transition"
@@ -55,6 +57,7 @@ export function ModifyWindow({ isOpen, alimento, onClose, onSave })
                 <input
                     id="form-grasas"
                     type="number"
+                    step="any"
                     value={newValue.grasas}
                     onChange={(e) => setNewValue(prev => ({ ...prev, grasas: e.target.value }))}
                     className="border border-transparent px-2 my-auto border-b-2 border-b-neutral-600 w-fit font-coda focus:outline-0 focus:border-b-primary focus:scale-110 mx-4 transition"
@@ -65,6 +68,7 @@ export function ModifyWindow({ isOpen, alimento, onClose, onSave })
                 <input
                     id="form-carbos"
                     type="number"
+                    step="any"
                     value={newValue.carbohidratos}
                     onChange={(e) => setNewValue(prev => ({ ...prev, carbohidratos: e.target.value }))}
                     className="border border-transparent px-2 my-auto border-b-2 border-b-neutral-600 w-fit font-coda focus:outline-0 focus:border-b-primary focus:scale-110 mx-4 transition"

@@ -3,6 +3,7 @@ import { ShowSvg } from '../../utilities/ShowSvg.jsx'
 import { GetPlanByID } from "../../../utils/getPlan.js";
 import { GetUserDiet, ListDietMeals, GetDietAsignationData, GetFoodCals, GetFood } from "../../../utils/getDiet.js";
 import { ModalListDiets } from "./ModalListDiets.jsx";
+import { API_URL } from "../../../utils/config.js";
 
 export function ModalAlumnoDietas({ token, alumnoActivo, setAlumnoActivo }) {
     const [macrosTotal, setMacrosTotal] = useState({});
@@ -172,7 +173,7 @@ export function ModalAlumnoDietas({ token, alumnoActivo, setAlumnoActivo }) {
 
     const handleEliminar = async () => {
     try {
-        await fetch(`/api/api/clientes/cliente_dieta/${alumnoActivo.id}`, {
+        await fetch(`${API_URL}/api/clientes/cliente_dieta/${alumnoActivo.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type' : 'application/json'

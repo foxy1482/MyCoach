@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/config";
 
 export function DisplayResetPW()
 {
@@ -22,7 +23,7 @@ export function DisplayResetPW()
             const fetchLink = window.location.pathname
             const tokenPrev = new URLSearchParams(window.location.search);
             const tokenReady = tokenPrev.get('token');
-            const response = await fetch(`/api/auth${fetchLink}`, {
+            const response = await fetch(`${API_URL}/auth${fetchLink}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

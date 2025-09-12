@@ -4,6 +4,7 @@ import { GetUserID } from "../../../../../utils/getUser";
 import { ShowSvg } from "../../../../utilities/ShowSvg";
 import { GetAllDiets } from "../../../../../utils/getDiet";
 import { ModalListFoods } from "./ModalListFoods";
+import { API_URL } from "../../../../../utils/config";
 
 export function CreateWindow({ dietaActual, onSave, onClose }) {
     const [comidas, setComidas] = useState([]);
@@ -27,7 +28,7 @@ export function CreateWindow({ dietaActual, onSave, onClose }) {
             setLoading(true);
             try {
                 const clienteData = await GetUserID(token);
-                const res = await fetch("/api/api/dietas/comida/");
+                const res = await fetch(`${API_URL}/api/dietas/comida/`);
                 const dietasData = await GetAllDiets();
                 setDietas(dietasData);
                 setSeleccion(dietas[0].id);

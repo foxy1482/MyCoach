@@ -68,7 +68,7 @@ export function DisplayProfile()
                             <div className="flex items-center space-x-6 my-6 lg:m-0">
                                 <div className='img-container relative w-fit'>
                                     <img
-                                    src="../../../../img/default-user.png"
+                                    src="/img/default-user.png"
                                     alt="Mi foto de perfil"
                                     className='size-24 rounded-full object-cover ring-4 ring-primary/20'
                                     />

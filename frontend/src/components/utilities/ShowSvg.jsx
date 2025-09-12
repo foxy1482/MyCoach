@@ -5,7 +5,7 @@ export function ShowSvg({ name, size, className = ""})
     try {
         return (
             <svg className={`my-auto ${className} svg-icon`} width={size} height={size}>
-                <use xlinkHref={`../../../img/sprite.svg#${name}`}></use>
+                <use xlinkHref={`/img/sprite.svg#${name}`}></use>
             </svg>
         );
     } catch (error) {
