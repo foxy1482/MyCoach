@@ -1,5 +1,53 @@
-.ejercicios-lista__li
-{
-    display: grid;
-    grid-template-columns: minmax(auto, 2fr) minmax(auto, 1fr) minmax(auto, 1fr) minmax(auto, 1fr);
+.ejercicios-lista__li.group {
+    animation: listarProyectos .65s cubic-bezier(0.5, 1.5, 0.5, 1) forwards;
+    transform: translateY(-100px);
+    opacity: 0;
+}
+.ejercicios-lista__li.group {
+    
+    animation-delay: 0s;
+}
+
+.ejercicios-lista__li.group:nth-child(n) {
+    animation-delay: calc(0.2s * (var(--i, 1) - 1));
+}
+
+.ejercicios-lista__li.group:nth-child(2)  { animation-delay: 0.2s; }
+.ejercicios-lista__li.group:nth-child(3)  { animation-delay: 0.4s; }
+.ejercicios-lista__li.group:nth-child(4)  { animation-delay: 0.6s; }
+.ejercicios-lista__li.group:nth-child(5)  { animation-delay: 0.8s; }
+.ejercicios-lista__li.group:nth-child(6)  { animation-delay: 1.0s; }
+.ejercicios-lista__li.group:nth-child(7)  { animation-delay: 1.2s; }
+.ejercicios-lista__li.group:nth-child(8)  { animation-delay: 1.4s; }
+.ejercicios-lista__li.group:nth-child(9)  { animation-delay: 1.6s; }
+.ejercicios-lista__li.group:nth-child(10) { animation-delay: 1.8s; }
+.ejercicios-lista__li.group:nth-child(11) { animation-delay: 2.0s; }
+.ejercicios-lista__li.group:nth-child(12) { animation-delay: 2.2s; }
+.ejercicios-lista__li.group:nth-child(13) { animation-delay: 2.4s; }
+.ejercicios-lista__li.group:nth-child(14) { animation-delay: 2.6s; }
+.ejercicios-lista__li.group:nth-child(15) { animation-delay: 2.8s; }
+.ejercicios-lista__li.group:nth-child(16) { animation-delay: 3.0s; }
+.ejercicios-lista__li.group:nth-child(17) { animation-delay: 3.2s; }
+.ejercicios-lista__li.group:nth-child(18) { animation-delay: 3.4s; }
+.ejercicios-lista__li.group:nth-child(19) { animation-delay: 3.6s; }
+.ejercicios-lista__li.group:nth-child(20) { animation-delay: 3.8s; }
+.ejercicios-lista__li.group:nth-child(21) { animation-delay: 4.0s; }
+
+@keyframes aparecer {
+    from {
+        filter: blur(10px);
+        opacity: 0;
+    }
+    to {
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+@keyframes listarProyectos {
+    from { transform: translateY(-100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideInIzq {
+    from { transform: translateX(-100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }

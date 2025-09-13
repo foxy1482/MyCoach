@@ -6,6 +6,7 @@ import { ListFoods } from "./ListFoods.jsx"
 import { ListExercises } from "./ListExercises.jsx"
 import { ShowControlData } from "./ShowControlData.jsx"
 import { LoadScreen } from "../../utilities/LoadScreen.jsx"
+import '../../../../css/Dashboard.css'
 
 export function DisplayDashboard()
 {

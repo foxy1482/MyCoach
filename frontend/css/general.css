@@ -22,6 +22,12 @@ body
     flex: 1;
 }
 
+.trainer-panel, .profile-data
+{
+  animation: bajada .25s ease-out;
+}
+
+
 /* Scrollbar general */
 ::-webkit-scrollbar {
   width: 8px; /* ancho de la barra */
@@ -39,4 +45,27 @@ body
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* color cuando pasás el mouse */
+}
+
+@keyframes aparecer {
+    from {
+        filter: blur(10px);
+        opacity: 0;
+    }
+    to {
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+@keyframes bajada {
+    from { transform: translateY(-500px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes listarProyectos {
+    from { transform: translateY(-100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideInIzq {
+    from { transform: translateX(-1000px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }

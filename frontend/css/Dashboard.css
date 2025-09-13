@@ -1,0 +1,40 @@
+/* Animaciones de comidas */
+
+div.comida-container {
+    animation: listarProyectos 1s cubic-bezier(0.5, 1.5, 0.5, 1) forwards;
+    transform: translateY(-100px);
+    opacity: 0;
+}
+
+/* Usa una fórmula para el delay incremental */
+div.comida-container {
+    /* fallback for browsers without nth-child math support */
+    animation-delay: 0s;
+}
+
+div.comida-container:nth-child(n) {
+    animation-delay: calc(0.2s * (var(--i, 1) - 1));
+}
+
+/* Si no puedes usar variables CSS, puedes dejar los delays manuales pero corregidos: */
+div.comida-container:nth-child(2)  { animation-delay: 0.2s; }
+div.comida-container:nth-child(3)  { animation-delay: 0.4s; }
+div.comida-container:nth-child(4)  { animation-delay: 0.6s; }
+div.comida-container:nth-child(5)  { animation-delay: 0.8s; }
+div.comida-container:nth-child(6)  { animation-delay: 1.0s; }
+div.comida-container:nth-child(7)  { animation-delay: 1.2s; }
+div.comida-container:nth-child(8)  { animation-delay: 1.4s; }
+div.comida-container:nth-child(9)  { animation-delay: 1.6s; }
+div.comida-container:nth-child(10) { animation-delay: 1.8s; }
+div.comida-container:nth-child(11) { animation-delay: 2.0s; }
+div.comida-container:nth-child(12) { animation-delay: 2.2s; }
+div.comida-container:nth-child(13) { animation-delay: 2.4s; }
+div.comida-container:nth-child(14) { animation-delay: 2.6s; }
+div.comida-container:nth-child(15) { animation-delay: 2.8s; }
+div.comida-container:nth-child(16) { animation-delay: 3.0s; }
+div.comida-container:nth-child(17) { animation-delay: 3.2s; }
+div.comida-container:nth-child(18) { animation-delay: 3.4s; }
+div.comida-container:nth-child(19) { animation-delay: 3.6s; }
+div.comida-container:nth-child(20) { animation-delay: 3.8s; }
+div.comida-container:nth-child(21) { animation-delay: 4.0s; }
+

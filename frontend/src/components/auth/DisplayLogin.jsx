@@ -66,8 +66,8 @@ export function DisplayLogin() {
                     ) : ""}
                 </form>
                 <div className="auth-options mb-4 flex flex-col font-carlito text-neutral-500/80 mx-auto justify-center text-center">
-                    <a href="/changepwd" className="options__forgot font-coda text-blue-500 transition hover:scale-120">¿Olvidaste tu contraseña?</a>
-                    <a href="/register" className="options__register font-bold transition hover:scale-120 hover:text-neutral-700">Crear una cuenta</a>
+                    <button onClick={() => navigate("/changepwd")} className="cursor-pointer options__forgot font-coda text-blue-500 transition hover:scale-120">¿Olvidaste tu contraseña?</button>
+                    <button onClick={() => navigate("/register")} className="cursor-pointer options__register font-bold transition hover:scale-120 hover:text-neutral-700">Crear una cuenta</button>
                 </div>
             </div>
         </React.Fragment>

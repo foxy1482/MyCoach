@@ -7,6 +7,7 @@ import { GetPlanByID } from "../../../utils/getPlan.js";
 import { TrainerDisplayRoutines } from "./TrainerDisplayRoutines.jsx";
 import { ShowSvg } from "../../utilities/ShowSvg.jsx";
 import { LoadScreen } from "../../utilities/LoadScreen.jsx";
+import '../../../../css/StyleListExercises.css'
 
 export function DisplayRoutines()
 {

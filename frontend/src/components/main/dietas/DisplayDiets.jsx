@@ -9,6 +9,7 @@ import '../../../../css/StyleDisplayDiets.css'
 import { TrainerDisplayDiets } from "./TrainerDisplayDiets.jsx";
 import { ClientModalMeal } from "./ClientModalMeal.jsx";
 import { LoadScreen } from "../../utilities/LoadScreen.jsx";
+import '../../../../css/StyleListFoods.css';
 
 export function DisplayDiets()
 {
@@ -209,9 +210,9 @@ export function DisplayDiets()
 
     const retornarComidas = ()=>
     {
-        return <ul className="ejercicios-lista flex flex-col gap-y-4 font-inter lg:grid lg:grid-cols-2 gap-6">
+        return <ul className="comidas-lista flex flex-col gap-y-4 font-inter lg:grid lg:grid-cols-2 gap-6">
                     {comidas.map((comida, index)=> (
-                        <li key={comida} className={`bg-gradient-to-br ${comida.orden == 1 ? "from-orange-50 to-yellow-50 border-orange-200 text-orange-600" : comida.orden == cantComidas ? "from-purple-50 to-purple-50 border-purple-200 text-purple-600" : "from-teal-50 to-teal-50 border-teal-200 text-teal-600"}
+                        <li key={comida} className={`comidas-lista__li bg-gradient-to-br ${comida.orden == 1 ? "from-orange-50 to-yellow-50 border-orange-200 text-orange-600" : comida.orden == cantComidas ? "from-purple-50 to-purple-50 border-purple-200 text-purple-600" : "from-teal-50 to-teal-50 border-teal-200 text-teal-600"}
                         border-2 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1
                         `}>
                             <button onClick={()=> {setComidaModal(comida); setModalActivo(true)}} className="size-full cursor-pointer">
@@ -231,7 +232,7 @@ export function DisplayDiets()
                                 </div>
                                 <div className="space-y-2">
                                     <p className="text-sm text-gray-700 font-medium">
-                                        {comida.alimentos.length > 1 ? comida.alimentos.length + " alimentos" : " alimento"}
+                                        {comida.alimentos.length > 1 ? comida.alimentos.length + " alimentos" : "1 alimento"}
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {comida.alimentos.map((alim) => (

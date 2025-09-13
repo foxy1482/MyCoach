@@ -65,7 +65,7 @@ export function DisplayRegister() {
                         <input type="submit" value="Crear cuenta" className="authform__input w-50 max-h-9 mx-auto border border-teal-300 text-teal-300 hover:text-white  hover:bg-teal-300 text-lg font-normal font-coda rounded-lg shadow-[0px_0px_15px_1px_rgba(44,158,170,0.35)] my-10 mt-12 cursor-pointer" />
                     </form>
                     <div className="auth-options mb-4 flex flex-col font-carlito text-neutral-500/80 mx-auto justify-center text-center">
-                        <a href="/" className="options__login font-coda text-blue-500 transition hover:scale-120">Ya tengo una cuenta</a>
+                        <button onClick={()=> navigate("/")} className="cursor-pointer options__login font-coda text-blue-500 transition hover:scale-120">Ya tengo una cuenta</button>
                     </div>
                 </div>
         </React.Fragment>
