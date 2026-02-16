@@ -1,25 +1,28 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  build: {
-    outDir: "dist",
-  },
-  server: {
-    historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: 'https://mycoach.up.railway.app',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+export default defineConfig(({mode}) => {
+  const env = loadEnv(mode, process.cwd());
+  return {
+    plugins: [react(), tailwindcss()],
+    build: {
+      outDir: "dist",
+    },
+    server: {
+      historyApiFallback: true,
+      proxy: {
+        '/api': {
+          target: env.VITE_API_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        }
       }
-    }
-  },
-  preview:
-  {
-    historyApiFallback: true,
-  },
+    },
+    preview:
+    {
+      historyApiFallback: true,
+    },
+  }
 })

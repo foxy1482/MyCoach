@@ -107,7 +107,7 @@ async def forgot_password(request: usuario.UsuarioForgotPWD, db: Session = Depen
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     
     reset_token = security.crear_token_reseteo(user.id)
-    reset_link = f"http://localhost:5173/reset-password?token={reset_token}"
+    reset_link = f"http://mycoach-demo.vercel.app/reset-password?token={reset_token}"
 
     await enviar_correo_reseteo(user.email, reset_link)
     

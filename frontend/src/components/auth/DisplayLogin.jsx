@@ -15,7 +15,7 @@ export function DisplayLogin() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://mycoach.up.railway.app/auth/login', {
+            const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

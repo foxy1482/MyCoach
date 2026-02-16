@@ -15,7 +15,7 @@ export function DisplayRegister() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://mycoach.up.railway.app/auth/registro', {
+            const response = await fetch('/api/auth/registro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
