@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 
 class RutinaEjercicioCreate(BaseModel):
@@ -30,6 +30,20 @@ class RutinaEjercicioRead(BaseModel):
     repeticiones: int
     rir: int
     
+    class Config:
+        orm_mode = True
+
+class EjerciciosRutinaRead(BaseModel):
+    id: int
+    dia: str
+    series: int
+    repeticiones: int
+    rir: int
+    ejercicio_id: int
+    nombre: str
+    grupo_muscular: Optional[str] = "General"
+
+    # En Pydantic V2, orm_mode se llama from_attributes
     class Config:
         orm_mode = True
 

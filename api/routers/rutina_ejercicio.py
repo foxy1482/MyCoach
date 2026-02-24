@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from api.schemas.rutina_ejercicio import RutinaEjercicioCreate, RutinaEjercicioRead, RutinaEjerciciosUpdate
+from api.schemas.rutina_ejercicio import RutinaEjercicioCreate, RutinaEjercicioRead, RutinaEjerciciosUpdate, EjerciciosRutinaRead
 from api.db.database import SessionLocal
 from api.models.rutina_ejercicio import RutinaEjercicio
 from api.models.ejercicio import Ejercicio
@@ -24,19 +24,30 @@ def asignar_ejercicio(rutina_ejercicio: RutinaEjercicioCreate, db: Session = Dep
     db.refresh(db_rutina_ejercicio)
     return db_rutina_ejercicio
 
-@router.get("/{rutina_id}/ejercicios", response_model=list[EjercicioRead])
+# Consulta con join, permite que sse puedan repetir ejercicios
+@router.get("/{rutina_id}/ejercicios", response_model=list[EjerciciosRutinaRead])
 def ver_ejercicios_de_rutina(rutina_id: int, db: Session = Depends(get_db)):
-    ejercicios = (
-        db.query(Ejercicio)
-        .join(RutinaEjercicio, Ejercicio.id == RutinaEjercicio.ejercicio_id)
+    asignaciones = (
+        db.query(
+            RutinaEjercicio.id,
+            RutinaEjercicio.dia,
+            RutinaEjercicio.series,
+            RutinaEjercicio.repeticiones,
+            RutinaEjercicio.rir,
+            Ejercicio.id.label("ejercicio_id"),
+            Ejercicio.nombre,
+            Ejercicio.grupo_muscular
+        )
+        .join(Ejercicio, RutinaEjercicio.ejercicio_id == Ejercicio.id)
         .filter(RutinaEjercicio.rutina_id == rutina_id)
         .all()
     )
-    return ejercicios
+    
+    return [a._asdict() for a in asignaciones]
 
-@router.get("/{rutina_id}/{ejercicio_id}/", response_model=RutinaEjercicioRead)
-def detalles_de_asignacion(rutina_id: int, ejercicio_id: int, db: Session = Depends(get_db)):
-    rutina_ejercicio = db.query(RutinaEjercicio).filter(RutinaEjercicio.rutina_id == rutina_id).filter(RutinaEjercicio.ejercicio_id == ejercicio_id).first()
+@router.get("/{rutina_id}/{asignacion_id}/", response_model=RutinaEjercicioRead)
+def detalles_de_asignacion(rutina_id: int, asignacion_id: int, db: Session = Depends(get_db)):
+    rutina_ejercicio = db.query(RutinaEjercicio).filter(RutinaEjercicio.rutina_id == rutina_id).filter(RutinaEjercicio.id == asignacion_id).first()
     if not rutina_ejercicio:
         raise HTTPException(status_code=404, detail="Esa asignación no existe.")
     return rutina_ejercicio
