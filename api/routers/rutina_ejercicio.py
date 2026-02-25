@@ -52,9 +52,9 @@ def detalles_de_asignacion(rutina_id: int, asignacion_id: int, db: Session = Dep
         raise HTTPException(status_code=404, detail="Esa asignación no existe.")
     return rutina_ejercicio
 
-@router.put("/{rutina_id}/{ejercicio_id}/modificar/", response_model=RutinaEjercicioRead)
-def modificar_asignacion(rutina_id: int, ejercicio_id: int, rutina_ejercicio_data: RutinaEjerciciosUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
-    rutina_ejercicio = db.query(RutinaEjercicio).filter(RutinaEjercicio.rutina_id == rutina_id).filter(RutinaEjercicio.ejercicio_id == ejercicio_id).first()
+@router.put("/{rutina_id}/{asignacion_id}/modificar/", response_model=RutinaEjercicioRead)
+def modificar_asignacion(rutina_id: int, asignacion_id: int, rutina_ejercicio_data: RutinaEjerciciosUpdate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
+    rutina_ejercicio = db.query(RutinaEjercicio).filter(RutinaEjercicio.rutina_id == rutina_id).filter(RutinaEjercicio.id == asignacion_id).first()
     if not rutina_ejercicio:
         raise HTTPException(status_code=404, detail="Esa asignación no existe. Debe crearla primero.")
     for field, value in rutina_ejercicio_data.dict(exclude_unset=True).items():
@@ -64,9 +64,9 @@ def modificar_asignacion(rutina_id: int, ejercicio_id: int, rutina_ejercicio_dat
     db.refresh(rutina_ejercicio)
     return rutina_ejercicio
 
-@router.delete("/{rutina_id}/{ejercicio_id}/eliminar/", response_model=RutinaEjercicioRead)
-def eliminar_asignacion(rutina_id: int, ejercicio_id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
-    rutina_ejercicio = db.query(RutinaEjercicio).filter(RutinaEjercicio.rutina_id == rutina_id).filter(RutinaEjercicio.ejercicio_id == ejercicio_id).first()
+@router.delete("/{rutina_id}/{asignacion_id}/eliminar/", response_model=RutinaEjercicioRead)
+def eliminar_asignacion(rutina_id: int, asignacion_id: int, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
+    rutina_ejercicio = db.query(RutinaEjercicio).filter(RutinaEjercicio.rutina_id == rutina_id).filter(RutinaEjercicio.id == asignacion_id).first()
     if not rutina_ejercicio:
         raise HTTPException(status_code=404, detail="Esa asignación no existe.")
     
