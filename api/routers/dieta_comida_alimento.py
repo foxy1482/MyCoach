@@ -32,13 +32,13 @@ def ver_comidas(dieta_id: int, db: Session = Depends(get_db)):
         SELECT 
             dc.id AS comida_id,
             dc.nombre AS comida,
-            SUM((a.calorias_100g / 100.0) * dca.cantidad_g) AS calorias_totales,
-            SUM((a.proteinas / 100.0) * dca.cantidad_g) AS proteinas_g,
-            SUM((a.carbohidratos / 100.0) * dca.cantidad_g) AS carbohidratos_g,
-            SUM((a.grasas / 100.0) * dca.cantidad_g) AS grasas_g
+            COALESCE(SUM((a.calorias_100g / 100.0) * dca.cantidad_g), 0) AS calorias_totales,
+            COALESCE(SUM((a.proteinas / 100.0) * dca.cantidad_g), 0) AS proteinas_g,
+            COALESCE(SUM((a.carbohidratos / 100.0) * dca.cantidad_g), 0) AS carbohidratos_g,
+            COALESCE(SUM((a.grasas / 100.0) * dca.cantidad_g), 0) AS grasas_g
         FROM dieta_comida dc
-        JOIN dieta_comida_alimento dca ON dca.dieta_comida_id = dc.id
-        JOIN alimento a ON a.id = dca.alimento_id
+        LEFT JOIN dieta_comida_alimento dca ON dca.dieta_comida_id = dc.id
+        LEFT JOIN alimento a ON a.id = dca.alimento_id
         WHERE dc.dieta_id = :dieta_id
         GROUP BY dc.id, dc.nombre
         """
@@ -50,7 +50,7 @@ def ver_comidas(dieta_id: int, db: Session = Depends(get_db)):
 @router.get("/{dieta_id}/comida/detalles/")
 def ver_comidas_detalle(dieta_id: int, db: Session = Depends(get_db)):
     tabla = text("""
-    SELECT 
+        SELECT 
             dc.id AS comida_id,
             dc.nombre AS nombre_comida,
             dc.orden AS orden,
@@ -58,25 +58,29 @@ def ver_comidas_detalle(dieta_id: int, db: Session = Depends(get_db)):
             a.nombre AS nombre_alimento,
             dca.cantidad_g
         FROM dieta_comida dc
-        JOIN dieta_comida_alimento dca ON dca.dieta_comida_id = dc.id
-        JOIN alimento a ON a.id = dca.alimento_id
+        LEFT JOIN dieta_comida_alimento dca ON dca.dieta_comida_id = dc.id
+        LEFT JOIN alimento a ON a.id = dca.alimento_id
         WHERE dc.dieta_id = :dieta_id
         ORDER BY dc.orden ASC
     """)
     rows = db.execute(tabla, {"dieta_id": dieta_id}).mappings().all()
+    
     comidas_dict = defaultdict(lambda: {"comida_id": None, "nombre_comida": None, "alimentos": []})
     
     for row in rows:
         comida_id = row["comida_id"]
+        
         if comidas_dict[comida_id]["comida_id"] is None:
             comidas_dict[comida_id]["comida_id"] = comida_id
             comidas_dict[comida_id]["nombre_comida"] = row["nombre_comida"]
             comidas_dict[comida_id]["orden"] = row["orden"]
-        comidas_dict[comida_id]["alimentos"].append({
-            "id" : row["id"],
-            "nombre": row["nombre_alimento"],
-            "cantidad_g": row["cantidad_g"]
-        })
+        
+        if row["id"] is not None:
+            comidas_dict[comida_id]["alimentos"].append({
+                "id" : row["id"],
+                "nombre": row["nombre_alimento"],
+                "cantidad_g": row["cantidad_g"]
+            })
 
     return list(comidas_dict.values())
 
