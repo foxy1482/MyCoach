@@ -5,4 +5,4 @@ class PlanPeriodo(Base):
     __tablename__ = "plan_periodo"
     
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, nullable=False)
+    periodo = Column(String, nullable=False)

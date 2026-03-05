@@ -16,7 +16,7 @@ def get_db():
 
 @router.post("/periodos/crear", response_model= PlanPeriodoRead)
 def crear_periodo(periodo: PlanPeriodoCreate, db: Session = Depends(get_db), user=Depends(role_required("entrenador","admin"))):
-    db_periodo = PlanPeriodo(**periodo.dict(()))
+    db_periodo = PlanPeriodo(**periodo.dict())
     db.add(db_periodo)
     db.commit()
     db.refresh(db_periodo)
