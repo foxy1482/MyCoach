@@ -19,6 +19,7 @@ class PesajeCreate(BaseModel):
         }
 
 class PesajeRead(BaseModel):
+    id: int
     cliente_id: int
     fecha: date
     peso: float

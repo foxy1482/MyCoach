@@ -224,10 +224,12 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
     * Ruta POST para crear un registro de peso y grasa corporal de un cliente. **Requiere permisos**.
 - /api/clientes/pesaje/consultar/{cliente_id}
     * Ruta GET para consultar los datos de los pesajes de un cliente.
-- /api/clientes/pesaje/modificar/{cliente_id}
-    * Ruta PUT para modificar los datos de un pesaje de un cliente.
-- /api/clientes/pesaje/eliminar/{cliente_id}
-    * Ruta DELETE para eliminar los datos de un pesaje de un cliente.
+- /api/clientes/pesaje/buscar/{id}
+    * Ruta GET para consultar los datos de un pesaje específico.
+- /api/clientes/pesaje/modificar/{id}
+    * Ruta PUT para modificar los datos de un pesaje específico. **Requiere permisos**.
+- /api/clientes/pesaje/eliminar/{id}
+    * Ruta DELETE para eliminar un pesaje específico. **Requiere permisos**.
 
 ### Rutinas
 - /api/rutinas/
@@ -250,11 +252,11 @@ Este token, es un **identificador único** con el que se puede comprobar de qué
     * Ruta POST para asignar un ejercicio a una rutina. **Requiere permisos**.
 - /api/rutinas/{rutina_id}/ejercicios/
     * Ruta GET para ver la lista de ejercicios de una rutina.
-- /api/rutinas/{rutina_id}/{ejercicio_id}/
+- /api/rutinas/{rutina_id}/{asignacion_id}/
     * Ruta GET para ver los detalles de la asignación de un ejercicio.
-- /api/rutinas/{rutina_id}/{ejercicio_id}/modificar/
+- /api/rutinas/{rutina_id}/{asignacion_id}/modificar/
     * Ruta PUT para modificar los datos de asignación de un ejercicio. **Requiere permisos**.
-- /api/rutinas/{rutina_id}/{ejercicio_id}/eliminar/
+- /api/rutinas/{rutina_id}/{asignacion_id}/eliminar/
     * Ruta DELETE para eliminar una asignación de un ejercicio.
 
 #### Planes
