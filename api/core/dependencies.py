@@ -9,8 +9,12 @@ from api.auth.models.usuario import Usuario
 from api.auth.models.rol import Rol
 from api.core.security import decodificar_token_acceso
 from api.auth.schemas.token import TokenData
+from api.models.cliente import Cliente
 
-def get_current_user(data: TokenData, db: Session = Depends(get_db)):
+def get_token_data(data: TokenData):
+    return data
+
+def get_current_user(data: TokenData = Depends(get_token_data), db: Session = Depends(get_db)):
     payload = decodificar_token_acceso(data.token)
     if not payload:
         raise HTTPException(
@@ -26,6 +30,19 @@ def get_current_user(data: TokenData, db: Session = Depends(get_db)):
         )
 
     return user
+
+def get_current_client(data: TokenData = Depends(get_token_data), db: Session = Depends(get_db)):
+    payload = decodificar_token_acceso(data.token)
+    if not payload:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token inválido o expirado"
+        )
+    user_id = payload.get("sub")
+    cliente = db.query(Cliente).filter(Cliente.usuario_id == user_id).first()
+    if not cliente:
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
+    return cliente
 
 def role_required(*allowed_roles: str):
     def role_checker(current_user: Usuario = Depends(get_current_user)):
